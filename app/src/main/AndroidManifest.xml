@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.nikvay.cnp_master">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <application
+        android:name=".volley_support.AppController"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:launchMode="singleTask"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".activity.NotificationDetailsActivity"></activity>
+        <activity android:name=".activity.QuotationActivity" />
+
+        <service
+            android:name=".firebaseServices.MyFirebaseInstanceIDService"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".firebaseServices.MyFirebaseMessagingService"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".activity.NotificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyPerformanceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.HolidayListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.LeaveApplicationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CNPProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CNPApplicationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ExplodedViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AttendanceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PriceListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SendPIActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="CNP Business Application"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.StockDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.PriceDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.AddCustomerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.AddVisitsActivity"
+            android:label="Add Visit"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.AddCollectionActivity"
+            android:label="Add Collection"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.CommonVisitCollectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RequestQuotationActivity"
+            android:label="Quotation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".activity.QuotationListActivity"
+            android:label="Quotation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.ViewQuotationActivity"
+            android:label="Quotation Detail"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.LocationActivity"
+            android:label="My Location"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OutstandingActivity"
+            android:label="Outstanding"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.OutstandingDetailActivity"
+            android:label="Receipt Detail"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.EditQuotationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activity.OrderProcessActivity"
+            android:label="Send Pi"
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="788c009d86fab49d41fb88df14d5b736842a70a8" />
+    </application>
+
+</manifest>
