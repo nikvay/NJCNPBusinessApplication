@@ -168,6 +168,7 @@ public class AttendanceActivity extends AppCompatActivity implements VolleyCompl
             map.put("attendence_type", attendanceType);
             new MyVolleyPostMethod(this, map, ServerConstants.ServiceCode.MARK_ATTENDANCE, true);
         } else {
+            getLocation();
             Toast.makeText(getApplicationContext(), "Please wait for 10 sec...", Toast.LENGTH_SHORT).show();
         }
     }
@@ -217,7 +218,7 @@ public class AttendanceActivity extends AppCompatActivity implements VolleyCompl
     void getLocation() {
         try {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 300, 0, this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
             locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         } catch (SecurityException e) {
             e.printStackTrace();
