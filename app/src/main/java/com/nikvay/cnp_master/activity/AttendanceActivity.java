@@ -218,6 +218,7 @@ public class AttendanceActivity extends AppCompatActivity implements VolleyCompl
         try {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 300, 0, this);
+            locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         } catch (SecurityException e) {
             e.printStackTrace();
         }

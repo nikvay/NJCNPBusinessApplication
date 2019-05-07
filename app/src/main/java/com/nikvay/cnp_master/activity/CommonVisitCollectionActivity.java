@@ -239,7 +239,6 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
                 callViewCollectionWS(ServerConstants.serverUrl.VIEW_COLLECTION, ServerConstants.ServiceCode.VIEW_COLLECTION);
 
             } else {
-
                 callViewCollectionWS(ServerConstants.serverUrl.VIEW_VISITS, ServerConstants.ServiceCode.VIEW_VISITS);
 
             }

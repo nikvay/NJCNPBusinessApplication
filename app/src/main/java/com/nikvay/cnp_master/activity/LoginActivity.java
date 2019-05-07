@@ -101,7 +101,6 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
 
     private GoogleApiClient googleApiClient;
     protected static final int REQUEST_CHECK_SETTINGS = 0x1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +113,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
 
         initView();
         getLocation();
+
       /*  mapUtility = new MapUtility(LoginActivity.this);
         init();
         if (mapUtility.getGPSstatus()) {
@@ -340,7 +340,9 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
     void getLocation() {
         try {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 300, 0, this);
+            locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         } catch (SecurityException e) {
             e.printStackTrace();
         }

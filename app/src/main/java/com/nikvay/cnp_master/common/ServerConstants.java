@@ -50,7 +50,7 @@ public class ServerConstants {
         public static final String DELETE_PRODUCT = BASE_URL + "ws-delete-quote-product";
         public static final String UPDATE_ADDRESS = BASE_URL + "ws-update-quote-address";
         public static final String UPDATE_CUSTOMER = BASE_URL + "ws-customer-update";
-        public static final String ADD_HO_DETAIL = BASE_URL + "ws-add-ho-visits  ";
+        public static final String ADD_HO_DETAIL = BASE_URL + "ws-add-ho-visits";
         public static final String SEND_PI = BASE_URL + "ws-send-pi";
         public static final String MARK_ATTENDANCE= BASE_URL + "ws-attendence";
         public static final String EXPLODED_VIEW= BASE_URL + "ws-exploded-type";
