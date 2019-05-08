@@ -46,7 +46,7 @@ public class MyVolleyGetMethod {
             mVolleylistener = (VolleyCompleteListener) context;
             myBackgroundGetClass(context, serviceCode, map, isDialog);
         } else {
-            showToast(context, "No Internet Connection");
+            internetErrorDialog.showDialog("No Internet Connection");
         }
     }
 
@@ -56,7 +56,7 @@ public class MyVolleyGetMethod {
         String url = map.get("url");
         map.remove("url");
         if (isDialog){
-            internetErrorDialog.showDialog("No Internet Connection");
+            showLoader.showDialog();
         }
         mVolleylistener = (VolleyCompleteListener) context;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
