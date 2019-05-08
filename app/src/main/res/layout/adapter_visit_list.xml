@@ -49,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:orientation="horizontal"
+            android:id="@+id/ll_customer"
             android:weightSum="10">
 
             <TextView
@@ -73,6 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:id="@+id/ll_contact_person"
             android:orientation="horizontal"
             android:weightSum="10">
 
@@ -99,6 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
+            android:id="@+id/ll_phone"
             android:weightSum="10">
 
             <TextView
@@ -124,6 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
+            android:id="@+id/ll_email"
             android:weightSum="10">
 
             <TextView
@@ -149,6 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
+            android:id="@+id/ll_date"
             android:weightSum="10">
 
             <TextView
@@ -173,6 +178,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:id="@+id/ll_message"
             android:orientation="horizontal"
             android:weightSum="10">
 

@@ -21,6 +21,7 @@ import com.nikvay.cnp_master.common.ServerConstants;
 import com.nikvay.cnp_master.common.VibrateOnClick;
 import com.nikvay.cnp_master.fragments.MyCustomerFragment;
 import com.nikvay.cnp_master.model.MyCustomerModel;
+import com.nikvay.cnp_master.utils.MessageDialog;
 import com.nikvay.cnp_master.utils.StaticContent;
 import com.nikvay.cnp_master.utils.SuccessDialog;
 import com.nikvay.cnp_master.utils.SuccessDialogClosed;
@@ -59,6 +60,7 @@ public class AddCustomerActivity extends AppCompatActivity implements VolleyComp
     private MyCustomerModel customerModel;
     private String mTitle = "Add Customer";
     private TextInputLayout inputLayout;
+    MessageDialog messageDialog;
 
 
     @Override
@@ -69,6 +71,8 @@ public class AddCustomerActivity extends AppCompatActivity implements VolleyComp
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle bundle = getIntent().getExtras();
+
+
         if (bundle != null) {
             customerModel = (MyCustomerModel) bundle.getSerializable(StaticContent.IntentKey.CUSTOMER_DETAIL);
             mTitle = bundle.getString(StaticContent.IntentKey.ACTIVITY_TYPE);
@@ -143,6 +147,8 @@ public class AddCustomerActivity extends AppCompatActivity implements VolleyComp
         textPackingCharges.setText("1");
         textInsuranceCharges.setText("1");
         textFreightPerson.setText("To Pay Basis");
+
+        messageDialog=new MessageDialog(AddCustomerActivity.this);
 
 
         events();
@@ -394,7 +400,7 @@ public class AddCustomerActivity extends AppCompatActivity implements VolleyComp
                         successDialog.showDialog("Customer added successfully", true);
 
                     }else {
-                        Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT).show();
+                       messageDialog.showDialog(msg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

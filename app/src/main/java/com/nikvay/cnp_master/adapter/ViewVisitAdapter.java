@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nikvay.cnp_master.R;
@@ -31,7 +32,7 @@ public class ViewVisitAdapter extends RecyclerView.Adapter<ViewVisitAdapter.MyDa
 
     @Override
     public int getItemCount() {
-        return arrayList==null?0:arrayList.size();
+        return arrayList == null ? 0 : arrayList.size();
     }
 
     @Override
@@ -44,14 +45,38 @@ public class ViewVisitAdapter extends RecyclerView.Adapter<ViewVisitAdapter.MyDa
     @Override
     public void onBindViewHolder(final MyDataHolder holder, final int position) {
         final MyDataHolder hold = (MyDataHolder) holder;
-        hold.textCountVA.setText(String.valueOf(position+1));
-        hold.textCustomerNameVA.setText(arrayList.get(position).getCust_name());
-        hold.textContactPerVA.setText(arrayList.get(position).getContact_person());
-        hold.textPhoneNumberVA.setText(arrayList.get(position).getTel());
-        hold.textEmailIDVA.setText(arrayList.get(position).getEmail());
-        hold.textRegistrationDateVA.setText(arrayList.get(position).getDate());
-        hold.textMessageVA.setText(arrayList.get(position).getMsg());
 
+        hold.textCountVA.setText(String.valueOf(position + 1));
+        String customerName=arrayList.get(position).getCust_name();
+        String contact_person=arrayList.get(position).getContact_person();
+        String phone=arrayList.get(position).getTel();
+        String email=arrayList.get(position).getEmail();
+        String date=arrayList.get(position).getDate();
+        String msg=arrayList.get(position).getMsg();
+        if(customerName.equalsIgnoreCase(""))
+        {
+         hold.ll_customer.setVisibility(View.GONE);
+        }
+        if(contact_person.equalsIgnoreCase(""))
+        {
+            hold.ll_contact_person.setVisibility(View.GONE);
+        }
+        if(phone.equalsIgnoreCase(""))
+        {
+            hold.ll_phone.setVisibility(View.GONE);
+        }
+        if(email.equalsIgnoreCase(""))
+        {
+            hold.ll_email.setVisibility(View.GONE);
+        }
+
+
+        hold.textCustomerNameVA.setText(customerName);
+        hold.textContactPerVA.setText(contact_person);
+        hold.textPhoneNumberVA.setText(phone);
+        hold.textEmailIDVA.setText(email);
+        hold.textRegistrationDateVA.setText(date);
+        hold.textMessageVA.setText(msg);
         setScaleAnimation(holder.itemView);
     }
 
@@ -65,15 +90,26 @@ public class ViewVisitAdapter extends RecyclerView.Adapter<ViewVisitAdapter.MyDa
                 textRegistrationDateVA,
                 textMessageVA;
 
+
+        LinearLayout ll_customer, ll_contact_person, ll_phone, ll_email, ll_date, ll_message;
+
+
         public MyDataHolder(View v) {
             super(v);
-            textCountVA =  v.findViewById(R.id.textCountVA);
-            textCustomerNameVA =  v.findViewById(R.id.textCustomerNameVA);
-            textContactPerVA =  v.findViewById(R.id.textContactPerVA);
-            textPhoneNumberVA =  v.findViewById(R.id.textPhoneNumberVA);
-            textEmailIDVA =  v.findViewById(R.id.textEmailIDVA);
+            textCountVA = v.findViewById(R.id.textCountVA);
+            textCustomerNameVA = v.findViewById(R.id.textCustomerNameVA);
+            textContactPerVA = v.findViewById(R.id.textContactPerVA);
+            textPhoneNumberVA = v.findViewById(R.id.textPhoneNumberVA);
+            textEmailIDVA = v.findViewById(R.id.textEmailIDVA);
             textRegistrationDateVA = v.findViewById(R.id.textRegistrationDateVA);
             textMessageVA = v.findViewById(R.id.textMessageVA);
+
+            ll_customer = v.findViewById(R.id.ll_customer);
+            ll_contact_person = v.findViewById(R.id.ll_contact_person);
+            ll_phone = v.findViewById(R.id.ll_phone);
+            ll_email = v.findViewById(R.id.ll_email);
+            ll_date = v.findViewById(R.id.ll_date);
+            ll_message = v.findViewById(R.id.ll_message);
         }
     }
 

@@ -41,6 +41,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 
 public class CommonVisitCollectionActivity extends AppCompatActivity implements VolleyCompleteListener {
@@ -342,11 +344,39 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
                                 visitListModel.setCust_name(cust_name);
                                 visitListModel.setContact_person(contact_person);
                                 visitListModel.setTel(tel);
-                                visitListModel.setEmail(email.isEmpty()?"N/A":email);
+                                visitListModel.setEmail(email.equalsIgnoreCase("") ? "N/A" : email);
                                 visitListModel.setMsg(msgg);
                                 visitListModel.setDate(date);
                                 visitArraylist.add(visitListModel);
                             }
+                        }
+                        JSONArray jsonArray1 = jsonObject.getJSONArray("ho_details");
+                        if(jsonArray1.length() > 0)
+                        {
+                            for(int i=0;i< jsonArray1.length();i++)
+                            {
+                                JSONObject jdata1 = jsonArray1.getJSONObject(i);
+                                String id = jdata1.getString("id");
+                                String sales_person_id = jdata1.getString("sales_person_id");
+                                String cust_name ="";
+                                String contact_person = "";
+                                String tel = "";
+                                String email = "";
+                                String msgg = jdata1.getString("message");
+                                String date = jdata1.getString("date");
+                                visitListModel = new VisitListModel();
+                                visitListModel.setId(id);
+                                visitListModel.setSales_person_id(sales_person_id);
+                                visitListModel.setCust_name(cust_name);
+                                visitListModel.setContact_person(contact_person);
+                                visitListModel.setTel(tel);
+                                visitListModel.setEmail(email);
+                                visitListModel.setMsg(msgg);
+                                visitListModel.setDate(date);
+                                visitArraylist.add(visitListModel);
+
+                            }
+                            Collections.reverse(visitArraylist);
                             visitAdapter = new ViewVisitAdapter(getApplicationContext(), visitArraylist);
                             recyclerMyCollection.setAdapter(visitAdapter);
                         } else {
@@ -357,7 +387,7 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
 
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "No data Found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "ERR0R", Toast.LENGTH_SHORT).show();
                 }
                 break;
             }

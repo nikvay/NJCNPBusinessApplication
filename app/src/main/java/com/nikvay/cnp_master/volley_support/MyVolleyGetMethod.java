@@ -10,6 +10,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.nikvay.cnp_master.utils.InternetErrorDialog;
 import com.nikvay.cnp_master.utils.LoginAlertDialog;
 import com.nikvay.cnp_master.utils.StaticContent;
 
@@ -30,11 +31,14 @@ public class MyVolleyGetMethod {
     private VolleyCompleteListener mVolleylistener;
     ShowLoader showLoader;
     private LoginAlertDialog loginAlertDialog;
+    InternetErrorDialog internetErrorDialog;
+
     public MyVolleyGetMethod(Context context, HashMap<String, String> map, int serviceCode, boolean isDialog) {
         this.map = map;
         this.serviceCode = serviceCode;
         this.context = context;
         this.loginAlertDialog = new LoginAlertDialog(context);
+        internetErrorDialog=new InternetErrorDialog(context);
         if (isDialog){
             showLoader = new ShowLoader(context);
         }
@@ -52,7 +56,7 @@ public class MyVolleyGetMethod {
         String url = map.get("url");
         map.remove("url");
         if (isDialog){
-            showLoader.showDialog();
+            internetErrorDialog.showDialog("No Internet Connection");
         }
         mVolleylistener = (VolleyCompleteListener) context;
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,

@@ -10,6 +10,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.nikvay.cnp_master.utils.InternetErrorDialog;
 import com.nikvay.cnp_master.utils.LoginAlertDialog;
 import com.nikvay.cnp_master.utils.StaticContent;
 import com.nikvay.cnp_master.utils.UserData;
@@ -27,6 +28,7 @@ public class MyVolleyPostMethod {
     private Map<String, String> map;
     private VolleyCompleteListener mVolleylistener;
     ShowLoader showLoader;
+    InternetErrorDialog internetErrorDialog;
     private LoginAlertDialog loginAlertDialog;
     private UserData userData;
 
@@ -36,6 +38,7 @@ public class MyVolleyPostMethod {
         this.context = context;
         this.userData = new UserData(context);
         this.loginAlertDialog = new LoginAlertDialog(context);
+        internetErrorDialog=new InternetErrorDialog(context);
         if (isDialog) {
             showLoader = new ShowLoader(context);
         }
@@ -43,7 +46,7 @@ public class MyVolleyPostMethod {
             mVolleylistener = (VolleyCompleteListener) context;
             myBackgroundGetClass(context, serviceCode, map, isDialog);
         } else {
-            showToast(context, "No Internet Connection");
+            internetErrorDialog.showDialog("No Internet Connection");
         }
     }
 

@@ -52,6 +52,8 @@ public class ServerConstants {
         public static final String UPDATE_CUSTOMER = BASE_URL + "ws-customer-update";
         public static final String ADD_HO_DETAIL = BASE_URL + "ws-add-ho-visits";
         public static final String SEND_PI = BASE_URL + "ws-send-pi";
+
+
         public static final String MARK_ATTENDANCE= BASE_URL + "ws-attendence";
         public static final String EXPLODED_VIEW= BASE_URL + "ws-exploded-type";
         public static final String EXPLODED_VIEW_SEND= BASE_URL + "ws-send-exploded-data";
@@ -76,10 +78,8 @@ public class ServerConstants {
         public static final int USER_INFO = 103;
         public static final int UPDATE_USER_INFO = 104;
         public static final int UPLOAD_PROFILE_PIC = 105;
-
         public static final int PRICE_LIST = 106;
         public static final int PRICE_SEARCH = 107;
-
         public static final int STOCK_LIST = 108;
         public static final int STOCK_DETAILS = 109;
         public static final int STOCK_SEARCH = 110;
@@ -107,6 +107,7 @@ public class ServerConstants {
         public static final int UPDATE_CUSTOMER = 131;
         public static final int ADD_HO_DETAIL = 132;
         public static final int SEND_PI = 133;
+
         public static final int MARK_ATTENDANCE = 134;
         public  static final int EXPLODED_VIEW=135;
         public static  final int EXPLODED_VIEW_SEND=136;
