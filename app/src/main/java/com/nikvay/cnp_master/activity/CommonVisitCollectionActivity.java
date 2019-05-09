@@ -286,6 +286,7 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
                                 JSONObject jdata = jsonArray.getJSONObject(i);
                                 String id = jdata.getString("id");
                                 String sales_person_id = jdata.getString("sales_person_id");
+                                String company_name =jdata.getString("company_name");
                                 String cust_name = jdata.getString("cust_name");
                                 String amount = jdata.getString("amount");
                                 String bill_no = jdata.getString("bill_no");
@@ -294,6 +295,7 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
                                 collectionModel.setId(id);
                                 collectionModel.setSales_person_id(sales_person_id);
                                 collectionModel.setCust_name(cust_name);
+                                collectionModel.setCompany_name(company_name);
                                 collectionModel.setAmount(amount);
                                 collectionModel.setBill_no(bill_no);
                                 collectionModel.setDate(date);
@@ -313,6 +315,7 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
                 }
                 break;
             }
+
             case ServerConstants.ServiceCode.VIEW_VISITS: {
 
                 try {

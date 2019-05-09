@@ -7,6 +7,18 @@ public class CollectionModel {
     String amount;
     String bill_no;
     String date;
+    String company_name;
+
+    public String getCompany_name() {
+        return company_name;
+    }
+
+    public void setCompany_name(String company_name) {
+        this.company_name = company_name;
+    }
+
+
+
 
     public String getId() {
         return id;

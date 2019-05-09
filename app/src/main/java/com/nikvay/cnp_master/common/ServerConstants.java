@@ -38,7 +38,7 @@ public class ServerConstants {
         public static final String GET_PRODUCT = BASE_URL + "ws-get-product-list";
         public static final String ADD_QUOTATION = BASE_URL + "ws-add-quotation";
         public static final String QUOTATION_LIST = BASE_URL + "ws-list-quotation";
-        public static final String VIEW_QUOTATION = BASE_URL + "ws-view-quotation";
+            public static final String VIEW_QUOTATION = BASE_URL + "ws-view-quotation";
         public static final String CHANGE_STATUS = BASE_URL + "ws-change-status";
         public static final String SEND_MAIL = BASE_URL + "ws-send-quote-mail";
         public static final String GET_OUTSTANDING_AMOUNT = BASE_URL + "ws-get-outstanding-amount";

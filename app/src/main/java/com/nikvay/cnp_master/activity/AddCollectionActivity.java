@@ -48,7 +48,8 @@ import java.util.HashMap;
 public class AddCollectionActivity extends AppCompatActivity implements VolleyCompleteListener, SelectCustomerInterface,SuccessDialogClosed {
     private AutoCompleteTextView textCustomerNameCollection,
             textAmountCollection,
-            textBillCollection;
+            textBillCollection,
+            textCompanyNameCollection;
     private Button btnSubmitCollection;
     private UserData userData;
     private TextView textSelectCustomerVisitC;
@@ -96,6 +97,7 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
         btnSubmitCollection =findViewById(R.id.btnSubmitCollection);
         textSelectCustomerVisitC = findViewById(R.id.textSelectCustomerVisitC);
         textSelectCustomerCHC =  findViewById(R.id.textSelectCustomerCHC);
+        textCompanyNameCollection =  findViewById(R.id.textCompanyNameCollection);
         events();
     }
 
@@ -222,6 +224,7 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
         map.put(ServerConstants.URL, ServerConstants.serverUrl.COLLECTION);
         map.put("sales_person_id", userData.getUserData(StaticContent.UserData.USER_ID));
         map.put("cust_name", textCustomerNameCollection.getText().toString());
+        map.put("company_name", textCompanyNameCollection.getText().toString());
         map.put("amount", textAmountCollection.getText().toString());
         map.put("bill_no", textBillCollection.getText().toString());
         new MyVolleyPostMethod(this, map, ServerConstants.ServiceCode.COLLECTION, true);
@@ -288,7 +291,7 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
 
     @Override
     public void getCustomerDetail(MyCustomerModel customerModel) {
-
+        textCompanyNameCollection.setText(customerModel.getCompany_name());
     }
 
     @Override

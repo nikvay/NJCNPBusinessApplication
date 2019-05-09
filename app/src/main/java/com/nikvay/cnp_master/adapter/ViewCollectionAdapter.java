@@ -48,6 +48,7 @@ public class ViewCollectionAdapter extends RecyclerView.Adapter<ViewCollectionAd
         hold.textAmountVC.setText(arrayList.get(position).getAmount());
         hold.textDateVC.setText(arrayList.get(position).getDate());
         hold.textBillNumberVC.setText(arrayList.get(position).getBill_no());
+        hold.textCompanyNameVC.setText(arrayList.get(position).getCompany_name());
 
         setScaleAnimation(holder.itemView);
     }
@@ -58,7 +59,8 @@ public class ViewCollectionAdapter extends RecyclerView.Adapter<ViewCollectionAd
                 textCustomerNameVC,
                 textAmountVC,
                 textBillNumberVC,
-                textDateVC;
+                textDateVC,
+                textCompanyNameVC;
 
         public MyDataHolder(View v) {
             super(v);
@@ -67,6 +69,7 @@ public class ViewCollectionAdapter extends RecyclerView.Adapter<ViewCollectionAd
             textAmountVC =  v.findViewById(R.id.textAmountVC);
             textBillNumberVC =  v.findViewById(R.id.textBillNumberVC);
             textDateVC = v.findViewById(R.id.textDateVC);
+            textCompanyNameVC = v.findViewById(R.id.textCompanyNameVC);
 
         }
     }

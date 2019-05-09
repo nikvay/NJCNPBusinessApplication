@@ -391,24 +391,37 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
                                 model.setNet_wt(net_wt);
                                 model.setDimension(dimension);
                                 arrayList.add(model);
+
                                 mNetAmount = mNetAmount + mathCalculation.calculatePer(discount_value, mQbasedPrice);
                             }
+
                             float mNetTemp = mNetAmount;
-                            float mPackaging = Float.valueOf(mathCalculation.getAddedPercentage(String.valueOf(mNetAmount), packing_charges));
-                            ans = mNetAmount + mPackaging;
+                            float  mPackaging = Float.valueOf(mathCalculation.getAddedPercentage(String.valueOf(mNetAmount), packing_charges));
+                            ans = mNetAmount + Math.round(mPackaging);
+
                             float mInsurance = Float.valueOf(mathCalculation.getAddedPercentage(String.valueOf(mNetAmount), model.getInsurance_charges()));
-                            ans = ans + mInsurance;
-                            float mSGST = !model.getSGST().equals("0") ? Float.valueOf(mathCalculation.getAddedPercentage(String.valueOf(mNetAmount), model.getSGST())) : 0;
-                            ans = ans + mSGST;
-                            float mCGST = !model.getSGST().equals("0") ? Float.valueOf(mathCalculation.getAddedPercentage(String.valueOf(mNetAmount), model.getCGST())) : 0;
-                            ans = ans + mCGST;
-                            float mIGST = !model.getSGST().equals("0") ? Float.valueOf(mathCalculation.getAddedPercentage(String.valueOf(mNetAmount), model.getIGST())) : 0;
-                            ans = ans + mIGST + Integer.valueOf(model.getFreight_terms());
+                            ans = ans +Math.round(mInsurance);
+                            ans = ans +Integer.valueOf(model.getFreight_terms());
+
+                            float mSGST =Math.round(!model.getSGST().equals("0") ? Float.valueOf(mathCalculation.getAddedPercentage(String.valueOf(ans), model.getSGST())) : 0);
+                            float mCGST =Math.round(!model.getSGST().equals("0") ? Float.valueOf(mathCalculation.getAddedPercentage(String.valueOf(ans), model.getCGST())) : 0);
+                            float mIGST =Math.round( !model.getSGST().equals("0") ? Float.valueOf(mathCalculation.getAddedPercentage(String.valueOf(mNetAmount), model.getIGST())) : 0);
+
+
+                            ans = ans + mSGST+mCGST+mIGST;
+
+
+
+
+
                             textNetAmountQV.setText("Net Amount: " + String.format("%.0f", mNetTemp));
                             textPackingChargesHQV.setText(model.getPacking_charges() + "% " + getResources().getString(R.string.packaging_charges));
-                            textPackingChargesQV.setText(String.valueOf(mPackaging));
+                            textPackingChargesQV.setText(String.valueOf(Math.round(mPackaging)));
+
                             textInsuranceChargesHQV.setText(model.getInsurance_charges() + "% " + getResources().getString(R.string.insurance_charges));
-                            textInsuranceChargesQV.setText(String.valueOf(mInsurance));
+                            textInsuranceChargesQV.setText(String.valueOf(Math.round(mInsurance)));
+
+
                             if (gst_type.equals(StaticContent.GstType.WITHIN_STATE)) {
                                 textIGSTHQV.setText("0" + "% " + getResources().getString(R.string.igst_charges));
                                 textIGSTQV.setText("0");

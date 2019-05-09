@@ -47,6 +47,8 @@ public class QuotationListProductAdapter extends RecyclerView.Adapter<QuotationL
     @Override
     public void onBindViewHolder(final MyDataHolder holder, final int position) {
         final MyDataHolder hold = (MyDataHolder) holder;
+
+
         hold.textProductNumberVQP.setText(String.valueOf(position + 1));
         hold.textProductNameVQP.setText(arrayList.get(position).getName());
         hold.textPriceVQP.setText(arrayList.get(position).getPrice());
@@ -55,7 +57,7 @@ public class QuotationListProductAdapter extends RecyclerView.Adapter<QuotationL
         hold.textQuantityVQP.setText(arrayList.get(position).getProduct_qty());
         hold.textDisValueVQP.setText("Discount: " + arrayList.get(position).getDiscount_value() + " % ");
         hold.textFromuVQP.setText(arrayList.get(position).getmQbasedPrice() + " - " + arrayList.get(position).getDiscount_value() + " % ");
-        hold.textGrandPVPQ.setText("Grand Price : " + String.format("%.0f",mathCalculation.calculatePer(arrayList.get(position).getDiscount_value(), arrayList.get(position).getmQbasedPrice())));
+        hold.textGrandPVPQ.setText("Grand Price : " + mathCalculation.calculatePer(arrayList.get(position).getDiscount_value(), arrayList.get(position).getmQbasedPrice()));
         hold.textNetVQP.setText(arrayList.get(position).getNet_wt());
         setScaleAnimation(holder.itemView);
     }
