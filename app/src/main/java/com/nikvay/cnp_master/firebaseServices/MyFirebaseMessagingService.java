@@ -50,6 +50,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             title = json.getString("title");
             description = json.getString("description");
             redirectId = json.getString("redirect_id");
+
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

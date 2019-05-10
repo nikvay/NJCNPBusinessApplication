@@ -26,6 +26,8 @@
         <activity android:name=".activity.NotificationDetailsActivity"></activity>
         <activity android:name=".activity.QuotationActivity" />
 
+
+
         <service
             android:name=".firebaseServices.MyFirebaseInstanceIDService"
             tools:ignore="ExportedService">
@@ -33,6 +35,8 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+
         <service
             android:name=".firebaseServices.MyFirebaseMessagingService"
             tools:ignore="ExportedService">
