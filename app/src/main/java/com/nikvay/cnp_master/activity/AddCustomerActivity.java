@@ -417,6 +417,10 @@ public class AddCustomerActivity extends AppCompatActivity implements VolleyComp
                         successDialog.showDialog("Updated successfully", true);
 
                     }
+                    else
+                    {
+                        messageDialog.showDialog(msg);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

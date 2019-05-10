@@ -1,10 +1,13 @@
 package com.nikvay.cnp_master.activity;
 
+import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -18,6 +21,7 @@ import com.nikvay.cnp_master.adapter.NotificationAdapter;
 import com.nikvay.cnp_master.common.ServerConstants;
 import com.nikvay.cnp_master.common.VolunteerClickListener;
 import com.nikvay.cnp_master.model.NotificationModule;
+import com.nikvay.cnp_master.utils.CalenderUtil;
 import com.nikvay.cnp_master.utils.SharedUtil;
 import com.nikvay.cnp_master.utils.StaticContent;
 import com.nikvay.cnp_master.volley_support.MyVolleyPostMethod;
@@ -27,8 +31,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class MyPerformanceActivity extends AppCompatActivity implements VolleyCompleteListener {
 
@@ -36,9 +44,14 @@ public class MyPerformanceActivity extends AppCompatActivity implements VolleyCo
     private ImageView iv_back_image_activity;
     private PieChart myPerformanceFirstPieChart, myPerformanceSecondPieChart;
     private PieData pieDataFirstChart, pieDataSecondChart;
+    private boolean isStartDate = false;
     ArrayList<Integer> colors = new ArrayList<>();
     SharedUtil sharedUtil;
     private String user_id;
+    private TextView textAllPerformance,
+            textDateStartPerformance,
+            textDateEndPerformance;
+    String currentDate;
 
 
     ArrayList<Entry> entries = new ArrayList<>();
@@ -56,9 +69,12 @@ public class MyPerformanceActivity extends AppCompatActivity implements VolleyCo
 
         initialization();
 
-        callMyPerformance();
 
         events();
+
+        callMyPerformance();
+
+
 
 
     }
@@ -66,6 +82,14 @@ public class MyPerformanceActivity extends AppCompatActivity implements VolleyCo
         iv_back_image_activity = findViewById(R.id.iv_back_image_activity);
         myPerformanceFirstPieChart = findViewById(R.id.myPerformanceFirstPieChart);
         myPerformanceSecondPieChart = findViewById(R.id.myPerformanceSecondPieChart);
+        textDateStartPerformance = findViewById(R.id.textDateStartPerformance);
+        textDateEndPerformance = findViewById(R.id.textDateEndPerformance);
+
+        currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
+        textDateEndPerformance.setText(currentDate);
+        textDateStartPerformance.setText(currentDate);
+
     }
     private void events() {
         iv_back_image_activity.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +99,26 @@ public class MyPerformanceActivity extends AppCompatActivity implements VolleyCo
             }
         });
 
+
+        textDateStartPerformance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isStartDate = true;
+                showDatePickerDialog();
+
+            }
+        });
+        textDateEndPerformance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isStartDate = false;
+                showDatePickerDialog();
+
+            }
+        });
+
+
+
     }
 
 
@@ -82,10 +126,13 @@ public class MyPerformanceActivity extends AppCompatActivity implements VolleyCo
         HashMap<String, String> map = new HashMap<>();
         map.put(ServerConstants.URL, ServerConstants.serverUrl.MY_PERFORMANCE);
         map.put("sales_person_id", user_id);
+        map.put("first_date", textDateStartPerformance.getText().toString());
+        map.put("last_date", textDateEndPerformance.getText().toString());
         new MyVolleyPostMethod(this, map, ServerConstants.ServiceCode.MY_PERFORMANCE, true);
 
 
     }
+
 
     @Override
     public void onTaskCompleted(String response, int serviceCode) {
@@ -96,6 +143,13 @@ public class MyPerformanceActivity extends AppCompatActivity implements VolleyCo
                     JSONObject jsonObject = new JSONObject(response);
                     String error_code = jsonObject.getString("error_code");
                     String msg = jsonObject.getString("msg");
+
+                    /*String first_date = jsonObject.getString("first_date");
+                    String last_date = jsonObject.getString("last_date");
+                    textDateEndPerformance.setText(first_date);
+                    textDateStartPerformance.setText(last_date);
+                    */
+
                     order_received = Integer.parseInt(jsonObject.getString("order_recive"));
                     generated_qu = Integer.parseInt(jsonObject.getString("genrated_quot_count"));
                     lost_qu = Integer.parseInt(jsonObject.getString("order_lost_count"));
@@ -216,4 +270,38 @@ public class MyPerformanceActivity extends AppCompatActivity implements VolleyCo
         xValues.add("Collection");
         return xValues;
     }
+
+
+    private void showDatePickerDialog() {
+        Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int date = c.get(Calendar.DATE);
+
+        DatePickerDialog datePickerDialog =
+                new DatePickerDialog(this, new MyPerformanceActivity.CalenderSelectDateListener(),
+                        year,
+                        month,
+                        date);
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
+        datePickerDialog.show();
+    }
+
+    class CalenderSelectDateListener implements DatePickerDialog.OnDateSetListener {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear,
+                              int dayOfMonth) {
+            try {
+                if (isStartDate) {
+                    textDateStartPerformance.setText(CalenderUtil.convertDate11(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year));
+
+                } else {
+                    textDateEndPerformance.setText(CalenderUtil.convertDate11(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year));
+            }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

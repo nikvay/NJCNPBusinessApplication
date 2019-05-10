@@ -237,7 +237,6 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
         if(isAdded){
             isAdded=false;
             if (mActivityType.equals(StaticContent.ActivityType.VIEW_COLLECTION)) {
-
                 callViewCollectionWS(ServerConstants.serverUrl.VIEW_COLLECTION, ServerConstants.ServiceCode.VIEW_COLLECTION);
 
             } else {
