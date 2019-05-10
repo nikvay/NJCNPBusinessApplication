@@ -84,7 +84,7 @@ public class RequestQuotationActivity extends AppCompatActivity implements Volle
             editDiscountQuantity,
             editReference,
             editNote,
-            editEmail;
+            editEmail,editEmailOptiona1,editEmailOptiona2;
     private Spinner spinnerBranchQuotation,
             spinnerGSTQuotation;
     private BranchModel model;
@@ -239,6 +239,12 @@ public class RequestQuotationActivity extends AppCompatActivity implements Volle
 
         spinnerBranchQuotation =  findViewById(R.id.spinnerBranchQuotation);
         spinnerGSTQuotation =  findViewById(R.id.spinnerGSTQuotation);
+        editEmailOptiona1 =  findViewById(R.id.editEmailOptiona1);
+        editEmailOptiona2 =  findViewById(R.id.editEmailOptiona2);
+
+
+
+
         events();
     }
 
@@ -663,6 +669,16 @@ public class RequestQuotationActivity extends AppCompatActivity implements Volle
             map.put("cc_email", editEmail.getText().toString());
 
         }
+        if (editEmailOptiona1.getText().toString().length() > 0) {
+            map.put("cc_email1", editEmailOptiona1.getText().toString());
+
+        }
+        if (editEmailOptiona2.getText().toString().length() > 0) {
+            map.put("cc_email2", editEmailOptiona2.getText().toString());
+        }
+
+
+
 
         new MyVolleyPostMethod(this, map, ServerConstants.ServiceCode.ADD_QUOTATION, true);
     }

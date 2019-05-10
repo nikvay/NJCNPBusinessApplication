@@ -338,8 +338,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:background="@color/cardview_light_background"
                 android:visibility="gone"
+                android:background="@color/cardview_light_background"
                 app:cardCornerRadius="@dimen/cardview_default_radius">
 
                 <LinearLayout
@@ -517,17 +517,51 @@
                             android:lines="1"
                             android:paddingLeft="5dp"
                             android:singleLine="true" />
-                        <EditText
+
+                     <EditText
                             android:id="@+id/editEmail"
                             style="@style/TextAppearance.AppCompat.Medium"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:hint="Email(Optional)"
+                            android:hint="Email(Optional 1)"
                             android:lines="1"
                             android:inputType="textEmailAddress"
                             android:paddingLeft="5dp"
                             android:singleLine="true" />
+
+
+
+                        <EditText
+                            android:id="@+id/editEmailOptiona1"
+                            style="@style/TextAppearance.AppCompat.Medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:hint="Email(Optional 2)"
+                            android:lines="1"
+                            android:inputType="textEmailAddress"
+                            android:paddingLeft="5dp"
+                            android:singleLine="true" />
+
+
+
+                        <EditText
+                            android:id="@+id/editEmailOptiona2"
+                            style="@style/TextAppearance.AppCompat.Medium"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:hint="Email(Optional 3)"
+                            android:lines="1"
+                            android:inputType="textEmailAddress"
+                            android:paddingLeft="5dp"
+                            android:singleLine="true" />
+
+
+
+
+
                         <EditText
                             android:id="@+id/editNote"
                             style="@style/TextAppearance.AppCompat.Medium"
