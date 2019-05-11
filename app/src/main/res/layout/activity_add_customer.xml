@@ -179,6 +179,7 @@
                         android:gravity="center|left"
                         android:hint="Discount (0-55)"
                         android:inputType="numberDecimal"
+                        android:maxLength="2"
                         android:paddingLeft="20dp"
                         android:textColor="@color/colorPrimary" />
 
