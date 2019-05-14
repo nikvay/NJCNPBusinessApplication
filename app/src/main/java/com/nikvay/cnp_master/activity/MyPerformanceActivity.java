@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateFormat;
+import android.text.format.Time;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -104,7 +106,7 @@ public class MyPerformanceActivity extends AppCompatActivity implements VolleyCo
             @Override
             public void onClick(View v) {
                 isStartDate = true;
-                showDatePickerDialog();
+                showDatePickerDialog(v);
 
             }
         });
@@ -112,7 +114,7 @@ public class MyPerformanceActivity extends AppCompatActivity implements VolleyCo
             @Override
             public void onClick(View v) {
                 isStartDate = false;
-                showDatePickerDialog();
+                showDatePickerDialog(v);
 
             }
         });
@@ -123,6 +125,7 @@ public class MyPerformanceActivity extends AppCompatActivity implements VolleyCo
 
 
     private void callMyPerformance() {
+        user_id = sharedUtil.getUserDetails().getUser_id();
         HashMap<String, String> map = new HashMap<>();
         map.put(ServerConstants.URL, ServerConstants.serverUrl.MY_PERFORMANCE);
         map.put("sales_person_id", user_id);
@@ -272,36 +275,42 @@ public class MyPerformanceActivity extends AppCompatActivity implements VolleyCo
     }
 
 
-    private void showDatePickerDialog() {
+    private void showDatePickerDialog(final View v) {
         Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int date = c.get(Calendar.DATE);
 
-        DatePickerDialog datePickerDialog =
-                new DatePickerDialog(this, new MyPerformanceActivity.CalenderSelectDateListener(),
-                        year,
-                        month,
-                        date);
-        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+
+                        Time chosenDate = new Time();
+                        chosenDate.set(dayOfMonth, monthOfYear, year);
+
+                        long dateAttendance = chosenDate.toMillis(true);
+                        currentDate = String.valueOf(DateFormat.format("dd-MM-yyyy", dateAttendance));
+
+                        if(v.getId()==R.id.textDateEndPerformance)
+                        {
+                            textDateEndPerformance.setText(currentDate);
+                            callMyPerformance();
+                        }
+                        if(v.getId()==R.id.textDateStartPerformance)
+                        {
+                            textDateStartPerformance.setText(currentDate);
+                            callMyPerformance();
+                        }
+
+
+
+                    }
+                }, year, month, date);
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
         datePickerDialog.show();
-    }
-
-    class CalenderSelectDateListener implements DatePickerDialog.OnDateSetListener {
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-            try {
-                if (isStartDate) {
-                    textDateStartPerformance.setText(CalenderUtil.convertDate11(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year));
-
-                } else {
-                    textDateEndPerformance.setText(CalenderUtil.convertDate11(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year));
-            }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
 }
