@@ -324,7 +324,7 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
                         if ((jsonArray.length() > 0) || (jsonArray1.length() > 0)) {
                             fab.show();
                             visitArraylist.clear();
-                            
+
                             if (jsonArray.length() > 0) {
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jdata = jsonArray.getJSONObject(i);
