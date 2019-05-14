@@ -78,8 +78,8 @@
                     android:backgroundTint="@color/colorPrimary"
                     android:gravity="center|left"
                     android:hint="Description"
-                    android:inputType="textMultiLine"
-                    android:singleLine="true"
+                    android:inputType="text"
+                    android:maxLines="4"
                     android:textColor="@color/colorPrimary" />
 
             </android.support.design.widget.TextInputLayout>
