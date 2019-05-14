@@ -125,6 +125,8 @@ public class MyPerformanceActivity extends AppCompatActivity implements VolleyCo
 
 
     private void callMyPerformance() {
+        entries.clear();
+        entriesSecond.clear();
         user_id = sharedUtil.getUserDetails().getUser_id();
         HashMap<String, String> map = new HashMap<>();
         map.put(ServerConstants.URL, ServerConstants.serverUrl.MY_PERFORMANCE);
@@ -302,7 +304,7 @@ public class MyPerformanceActivity extends AppCompatActivity implements VolleyCo
                         if(v.getId()==R.id.textDateStartPerformance)
                         {
                             textDateStartPerformance.setText(currentDate);
-                            callMyPerformance();
+                                callMyPerformance();
                         }
 
 
