@@ -167,7 +167,6 @@ public class MyPerformanceActivity extends AppCompatActivity implements VolleyCo
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Not available", Toast.LENGTH_SHORT).show();
-
                 }
                 break;
             }
