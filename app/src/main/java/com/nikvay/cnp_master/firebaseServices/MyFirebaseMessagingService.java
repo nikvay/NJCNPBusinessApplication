@@ -12,11 +12,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.nikvay.cnp_master.R;
 import com.nikvay.cnp_master.activity.MainActivity;
+import com.nikvay.cnp_master.utils.SharedUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +38,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public MyFirebaseMessagingService() {
         // empty required
     }
+
+
+    @Override
+    public void onNewToken(String token) {
+        super.onNewToken(token);
+        Log.d(TAG, "Refreshed token: " + token);
+
+        SharedUtil.putDeviceToken(getApplicationContext(),token);
+
+    }
+
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
