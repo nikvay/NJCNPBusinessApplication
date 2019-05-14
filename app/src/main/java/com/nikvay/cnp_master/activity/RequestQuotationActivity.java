@@ -677,9 +677,6 @@ public class RequestQuotationActivity extends AppCompatActivity implements Volle
             map.put("cc_email2", editEmailOptiona2.getText().toString());
         }
 
-
-
-
         new MyVolleyPostMethod(this, map, ServerConstants.ServiceCode.ADD_QUOTATION, true);
     }
 

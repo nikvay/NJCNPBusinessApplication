@@ -70,13 +70,14 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit_collection);
-        toolbar =  findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mActivityType = getIntent().getExtras().getString(StaticContent.ActivityType.ACTIVITY_TYPE);
         localBrodcastInitialize();
         initialize();
     }
+
     private void localBrodcastInitialize() {
         LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver,
                 new IntentFilter(StaticContent.LocalBrodcastReceiverCode.CLOSE_ACTIVITY));
@@ -91,6 +92,7 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
             }
         }
     };
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -104,12 +106,12 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
 
     private void initialize() {
         VibrateOnClick.vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        fab=findViewById(R.id.fab);
+        fab = findViewById(R.id.fab);
         userData = new UserData(getApplicationContext());
-        textAllCollection =  findViewById(R.id.textAllCollection);
+        textAllCollection = findViewById(R.id.textAllCollection);
         textDateStartCollection = findViewById(R.id.textDateStartCollection);
-        textDateEndCollection =  findViewById(R.id.textDateEndCollection);
-        refreshMyCustomer =  findViewById(R.id.refreshMyCustomer);
+        textDateEndCollection = findViewById(R.id.textDateEndCollection);
+        refreshMyCustomer = findViewById(R.id.refreshMyCustomer);
         btnViewVC = findViewById(R.id.btnViewVC);
         btnAddVC = findViewById(R.id.btnAddVC);
         recyclerMyCollection = findViewById(R.id.recyclerMyCollection);
@@ -189,12 +191,9 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
 
-                if(!recyclerView.canScrollVertically(1))
-                {
+                if (!recyclerView.canScrollVertically(1)) {
                     fab.hide();
-                }
-                else if (newState == RecyclerView.SCROLL_STATE_IDLE)
-                {
+                } else if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     fab.show();
                 }
                 super.onScrollStateChanged(recyclerView, newState);
@@ -205,24 +204,18 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
 
 
-                if(dy==0)
-                {
+                if (dy == 0) {
                     fab.show();
 
-                }
-                else if(dy>0){
+                } else if (dy > 0) {
 
                     fab.show();
-                }
-                else if(dy<0)
-                {
+                } else if (dy < 0) {
                     fab.hide();
                 }
 
 
-
-                super.onScrolled(recyclerView,dx,dy);
-
+                super.onScrolled(recyclerView, dx, dy);
 
 
             }
@@ -234,8 +227,8 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        if(isAdded){
-            isAdded=false;
+        if (isAdded) {
+            isAdded = false;
             if (mActivityType.equals(StaticContent.ActivityType.VIEW_COLLECTION)) {
                 callViewCollectionWS(ServerConstants.serverUrl.VIEW_COLLECTION, ServerConstants.ServiceCode.VIEW_COLLECTION);
 
@@ -285,7 +278,7 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
                                 JSONObject jdata = jsonArray.getJSONObject(i);
                                 String id = jdata.getString("id");
                                 String sales_person_id = jdata.getString("sales_person_id");
-                                String company_name =jdata.getString("company_name");
+                                String company_name = jdata.getString("company_name");
                                 String cust_name = jdata.getString("cust_name");
                                 String amount = jdata.getString("amount");
                                 String bill_no = jdata.getString("bill_no");
@@ -327,55 +320,57 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
                     textDateEndCollection.setText(last_date);
                     if (error_code.equals(StaticContent.ServerResponseValidator.ERROR_CODE) && msg.equals(StaticContent.ServerResponseValidator.MSG)) {
                         JSONArray jsonArray = jsonObject.getJSONArray("branch_details");
-                        if (jsonArray.length() > 0) {
+                        JSONArray jsonArray1 = jsonObject.getJSONArray("ho_details");
+                        if ((jsonArray.length() > 0) || (jsonArray1.length() > 0)) {
                             fab.show();
                             visitArraylist.clear();
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject jdata = jsonArray.getJSONObject(i);
-                                String id = jdata.getString("id");
-                                String sales_person_id = jdata.getString("sales_person_id");
-                                String cust_name = jdata.getString("cust_name");
-                                String contact_person = jdata.getString("contact_person");
-                                String tel = jdata.getString("tel");
-                                String email = jdata.getString("email");
-                                String msgg = jdata.getString("msg");
-                                String date = jdata.getString("date");
-                                visitListModel = new VisitListModel();
-                                visitListModel.setId(id);
-                                visitListModel.setSales_person_id(sales_person_id);
-                                visitListModel.setCust_name(cust_name);
-                                visitListModel.setContact_person(contact_person);
-                                visitListModel.setTel(tel);
-                                visitListModel.setEmail(email.equalsIgnoreCase("") ? "N/A" : email);
-                                visitListModel.setMsg(msgg);
-                                visitListModel.setDate(date);
-                                visitArraylist.add(visitListModel);
+                            
+                            if (jsonArray.length() > 0) {
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jdata = jsonArray.getJSONObject(i);
+                                    String id = jdata.getString("id");
+                                    String sales_person_id = jdata.getString("sales_person_id");
+                                    String cust_name = jdata.getString("cust_name");
+                                    String contact_person = jdata.getString("contact_person");
+                                    String tel = jdata.getString("tel");
+                                    String email = jdata.getString("email");
+                                    String msgg = jdata.getString("msg");
+                                    String date = jdata.getString("date");
+                                    visitListModel = new VisitListModel();
+                                    visitListModel.setId(id);
+                                    visitListModel.setSales_person_id(sales_person_id);
+                                    visitListModel.setCust_name(cust_name);
+                                    visitListModel.setContact_person(contact_person);
+                                    visitListModel.setTel(tel);
+                                    visitListModel.setEmail(email.equalsIgnoreCase("") ? "N/A" : email);
+                                    visitListModel.setMsg(msgg);
+                                    visitListModel.setDate(date);
+                                    visitArraylist.add(visitListModel);
+                                }
                             }
-                        }
-                        JSONArray jsonArray1 = jsonObject.getJSONArray("ho_details");
-                        if(jsonArray1.length() > 0)
-                        {
-                            for(int i=0;i< jsonArray1.length();i++)
-                            {
-                                JSONObject jdata1 = jsonArray1.getJSONObject(i);
-                                String id = jdata1.getString("id");
-                                String sales_person_id = jdata1.getString("sales_person_id");
-                                String cust_name ="";
-                                String contact_person = "";
-                                String tel = "";
-                                String email = "";
-                                String msgg = jdata1.getString("message");
-                                String date = jdata1.getString("date");
-                                visitListModel = new VisitListModel();
-                                visitListModel.setId(id);
-                                visitListModel.setSales_person_id(sales_person_id);
-                                visitListModel.setCust_name(cust_name);
-                                visitListModel.setContact_person(contact_person);
-                                visitListModel.setTel(tel);
-                                visitListModel.setEmail(email);
-                                visitListModel.setMsg(msgg);
-                                visitListModel.setDate(date);
-                                visitArraylist.add(visitListModel);
+                            if (jsonArray1.length() > 0) {
+                                for (int i = 0; i < jsonArray1.length(); i++) {
+                                    JSONObject jdata1 = jsonArray1.getJSONObject(i);
+                                    String id = jdata1.getString("id");
+                                    String sales_person_id = jdata1.getString("sales_person_id");
+                                    String cust_name = "";
+                                    String contact_person = "";
+                                    String tel = "";
+                                    String email = "";
+                                    String msgg = jdata1.getString("message");
+                                    String date = jdata1.getString("date");
+                                    visitListModel = new VisitListModel();
+                                    visitListModel.setId(id);
+                                    visitListModel.setSales_person_id(sales_person_id);
+                                    visitListModel.setCust_name(cust_name);
+                                    visitListModel.setContact_person(contact_person);
+                                    visitListModel.setTel(tel);
+                                    visitListModel.setEmail(email);
+                                    visitListModel.setMsg(msgg);
+                                    visitListModel.setDate(date);
+                                    visitArraylist.add(visitListModel);
+
+                                }
 
                             }
                             Collections.reverse(visitArraylist);

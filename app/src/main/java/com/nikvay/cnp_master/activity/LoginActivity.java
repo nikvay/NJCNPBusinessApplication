@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
 
 
 
-    String address;
+    String address,token;
     LocationManager locationManager;
 
 
@@ -105,6 +105,9 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
+        token = sharedUtil.getDeviceToken(LoginActivity.this);
 
         googleApiClient = getAPIClientInstance();
         if (googleApiClient != null) {
@@ -144,7 +147,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
 
                 if (status.equals("success")) {
                     txt_error_message.setText("");
-                    callWebServices(email, password);
+                    callWebServices(email, password,token);
                 } else {
                     txt_error_message.setText(status);
                 }
@@ -155,7 +158,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
 
     }
 
-    private void callWebServices(String email, String password) {
+    private void callWebServices(String email, String password,String token) {
         // String address = mapUtility.getCompleteAddressString(LoginActivity.shareLatitude, LoginActivity.shareLongitude);
 
         if (address != null && !address.equals("")) {
@@ -164,6 +167,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
             map.put("email_id", email);
             map.put("password", password);
             map.put("login_location", address);
+            map.put("firebase_id", token);
             new MyVolleyPostMethod(LoginActivity.this, map, ServerConstants.ServiceCode.LOGIN, true);
         } else {
             getLocation();
