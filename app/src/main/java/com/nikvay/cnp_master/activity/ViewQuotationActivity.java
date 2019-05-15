@@ -425,6 +425,7 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
                             if (gst_type.equals(StaticContent.GstType.WITHIN_STATE)) {
                                 textIGSTHQV.setText("0" + "% " + getResources().getString(R.string.igst_charges));
                                 textIGSTQV.setText("0");
+                                ans=ans-mIGST;
                                 textSGSTHQV.setText(model.getSGST() + "% " + getResources().getString(R.string.sgst_charges));
                                 textSGSTQV.setText(String.format("%.0f", mSGST));
                                 textCGSTHQV.setText(model.getCGST() + "% " + getResources().getString(R.string.cgst_charges));
