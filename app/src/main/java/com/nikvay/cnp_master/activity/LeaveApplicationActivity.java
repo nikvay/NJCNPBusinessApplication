@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -169,16 +170,14 @@ public class LeaveApplicationActivity extends AppCompatActivity implements Volle
     }
 
     private void callLeaveApplication(String subject, String description, String start_date, String toDate, String user_id) {
-
-        HashMap<String, String> map = new HashMap<>();
-        map.put(ServerConstants.URL, ServerConstants.serverUrl.LEAVE_APPLICATION);
-        map.put("subject", subject);
-        map.put("description", description);
-        map.put("start_date", start_date);
-        map.put("end_date", toDate);
-        map.put("sales_person_id", user_id);
-        new MyVolleyPostMethod(this, map, ServerConstants.ServiceCode.LEAVE_APPLICATION, true);
-
+            HashMap<String, String> map = new HashMap<>();
+            map.put(ServerConstants.URL, ServerConstants.serverUrl.LEAVE_APPLICATION);
+            map.put("subject", subject);
+            map.put("description", description);
+            map.put("start_date", start_date);
+            map.put("end_date", toDate);
+            map.put("sales_person_id", user_id);
+            new MyVolleyPostMethod(this, map, ServerConstants.ServiceCode.LEAVE_APPLICATION, true);
 
     }
 
@@ -193,6 +192,10 @@ public class LeaveApplicationActivity extends AppCompatActivity implements Volle
         edtFromDate=findViewById(R.id.edtFromDate);
         edtToDate=findViewById(R.id.edtToDate);
         btnSubmitLeave=findViewById(R.id.btnSubmitLeave);
+
+
+        edtFromDate.setFocusable(false);
+        edtToDate.setFocusable(false);
     }
 
     @Override
@@ -204,7 +207,7 @@ public class LeaveApplicationActivity extends AppCompatActivity implements Volle
                     JSONObject jsonObject = new JSONObject(response);
                     String error_code = jsonObject.getString("error_code");
                     String msg = jsonObject.getString("msg");
-                    if (error_code.equals(StaticContent.ServerResponseValidator.ERROR_CODE) && msg.equals(StaticContent.ServerResponseValidator.MSG)) {
+                    if (error_code.equals(StaticContent.ServerResponseValidator.ERROR_CODE)) {
                         successDialog.showDialog(" Leave Application Send  Successfully", true);
 
 
