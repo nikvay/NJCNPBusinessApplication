@@ -429,13 +429,17 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
                                 textSGSTQV.setText(String.format("%.0f", mSGST));
                                 textCGSTHQV.setText(model.getCGST() + "% " + getResources().getString(R.string.cgst_charges));
                                 textCGSTQV.setText(String.format("%.0f", mCGST));
+
+
                             } else {
                                 textIGSTHQV.setText(model.getIGST() + "% " + getResources().getString(R.string.igst_charges));
                                 textIGSTQV.setText(String.format("%.0f", mIGST));
                                 textSGSTHQV.setText("0" + "% " + getResources().getString(R.string.sgst_charges));
                                 textSGSTQV.setText("0");
+                                ans=ans-mSGST;
                                 textCGSTHQV.setText("0" + "% " + getResources().getString(R.string.cgst_charges));
                                 textCGSTQV.setText("0");
+                                ans=ans-mCGST;
                             }
                            /* textSGSTHQV.setText(model.getSGST() + "% " + getResources().getString(R.string.sgst_charges));
                             textSGSTQV.setText(String.format("%.0f", mSGST));
