@@ -46,6 +46,7 @@ import com.nikvay.cnp_master.model.Drawer;
 import com.nikvay.cnp_master.utils.CommonIntent;
 import com.nikvay.cnp_master.utils.FilesUtil;
 import com.nikvay.cnp_master.utils.LogoutPopup;
+import com.nikvay.cnp_master.utils.Logout_Application;
 import com.nikvay.cnp_master.utils.SharedUtil;
 import com.nikvay.cnp_master.utils.ShowToast;
 import com.nikvay.cnp_master.utils.StaticContent;
@@ -343,7 +344,9 @@ public class MainActivity extends AppCompatActivity implements HomeScreenFragmen
                 break;
             case StaticContent.DrawerItems.LOGOUT:
                 VibrateOnClick.vibrate();
-                LogoutPopup.Logout(MainActivity.this);
+//                LogoutPopup.Logout(MainActivity.this);
+                Logout_Application logout_application=new Logout_Application(MainActivity.this);
+                logout_application.showDialog();
                 break;
 
             default:
