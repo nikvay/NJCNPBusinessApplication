@@ -541,8 +541,10 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
             case "2": {
                 if (!is_remind.equals("") && is_remind.equals("0")) {
                     btnDynamic.setText(StaticContent.QuotationStatusCode.SEND_MAIL);
+                    btnGotIt.setVisibility(View.GONE);
                 } else {
                     btnDynamic.setText(StaticContent.QuotationStatusCode.SEND_REMINDER);
+                    btnGotIt.setVisibility(View.GONE);
                 }
                 break;
             }
