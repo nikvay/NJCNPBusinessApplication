@@ -1,11 +1,13 @@
 package com.nikvay.cnp_master.activity;
 
 import android.app.Dialog;
+import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import android.view.Window;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -101,12 +104,15 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
     private AppController appController;
     public static boolean isUpdated = false;
     private boolean toHideEdit = false;
+    private ImageView iv_image_download;
+    DownloadManager downloadManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_quotation);
         Toolbar toolbar = findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.getNavigationIcon().setColorFilter(getResources().getColor(android.R.color.white), PorterDuff.Mode.SRC_ATOP);
@@ -152,6 +158,7 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
         textPackingChargesVQ = findViewById(R.id.textPackingChargesVQ);
         textBranchNameVQ = findViewById(R.id.textBranchNameVQ);
         textBillingAddressVQ =  findViewById(R.id.textBillingAddressVQ);
+        iv_image_download =  findViewById(R.id.iv_image_download);
         quotationInitialize();
         linearButtonsVQ = findViewById(R.id.linearButtonsVQ);
         btnDynamic = findViewById(R.id.btnDynamic);
@@ -240,9 +247,24 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
             public void onClick(View v) {
                 cancelDialog.show();
                 Window window = cancelDialog.getWindow();
-                window.setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             }
         });
+
+
+        iv_image_download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callDownloadPdfList();
+            }
+        });
+
+    }
+    private void callDownloadPdfList() {
+        HashMap<String, String> map = new HashMap<>();
+        map.put(ServerConstants.URL, ServerConstants.serverUrl.QUOTATION_PDF_LIST);
+        map.put("quote_num", quote_num);
+        new MyVolleyPostMethod(this, map, ServerConstants.ServiceCode.QUOTATION_PDF_LIST, true);
     }
 
     private void changeStatusWS(int statusCode) {
@@ -520,8 +542,47 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
                 }
                 break;
             }
+
+            case ServerConstants.ServiceCode.QUOTATION_PDF_LIST: {
+                try {JSONObject jsonObject = new JSONObject(response);
+                    String error_code = jsonObject.getString("error_code");
+                    String msg = jsonObject.getString("msg");
+                    if (error_code.equals(StaticContent.ServerResponseValidator.ERROR_CODE) && msg.equals(StaticContent.ServerResponseValidator.MSG)) {
+
+                        String folder_path=jsonObject.getString("folder_path");
+                        String pdf_name=jsonObject.getString("pdf_name");
+                        String url=ServerConstants.serverUrl.BASE_URL+folder_path+pdf_name;
+
+                        if (pdf_name.equalsIgnoreCase("null"))
+                        {
+                            iv_image_download.setVisibility(View.GONE);
+
+                        }
+                        else {
+                            iv_image_download.setVisibility(View.VISIBLE);
+                            downloadQuotationPdfList(url);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+
         }
     }
+
+
+    private void downloadQuotationPdfList(String url)
+    {
+
+        downloadManager=(DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri= Uri.parse(url);
+        DownloadManager.Request request=new DownloadManager.Request(uri);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        Long reference=downloadManager.enqueue(request);
+    }
+
 
 
     private void callSendMailWS() {

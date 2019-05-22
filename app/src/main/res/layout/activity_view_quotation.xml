@@ -21,14 +21,23 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@color/colorPrimary"
             android:paddingLeft="-10dp"
+            android:theme="@style/AppTheme.ActionBar"
             app:contentInsetLeft="-20dp"
             app:contentInsetStart="-20dp"
             app:contentInsetStartWithNavigation="-20dp"
             app:layout_collapseMode="pin"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:theme="@style/AppTheme.ActionBar"
             app:layout_scrollFlags="scroll|enterAlways"
-            >
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+
+            <ImageView
+                android:id="@+id/iv_image_download"
+                android:layout_width="40dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="50dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_vector_download"
+                android:visibility="gone" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -268,6 +277,7 @@
                                             android:textColor="@color/colorPrimary" />
 
                                     </android.support.design.widget.TextInputLayout>
+
                                     <android.support.design.widget.TextInputLayout
                                         android:layout_width="match_parent"
                                         android:layout_height="0dp"

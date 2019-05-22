@@ -68,6 +68,7 @@ public class ServerConstants {
         public static final String  NOTIFICATION_LIST= BASE_URL + "ws-notification-list";
         public static final String  MY_PERFORMANCE= BASE_URL + "ws-user-performance";
         public static final String  QUOTATION_LIST_COUNT= BASE_URL + "ws-user-quote-list-count";
+        public static final String  QUOTATION_PDF_LIST= BASE_URL + "ws-quote-list-pdf";
 
     }
 
@@ -122,8 +123,7 @@ public class ServerConstants {
         public  static final int NOTIFICATION_LIST=145;
         public  static final int MY_PERFORMANCE=146;
         public  static final int QUOTATION_LIST_COUNT=147;
-
-
+        public  static final int QUOTATION_PDF_LIST=148;
 
     }
 
