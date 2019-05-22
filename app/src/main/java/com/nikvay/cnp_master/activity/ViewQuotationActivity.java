@@ -104,7 +104,8 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
     private AppController appController;
     public static boolean isUpdated = false;
     private boolean toHideEdit = false;
-    private ImageView iv_image_download;
+    private boolean toDownloadEdit = false;
+  //  private ImageView iv_image_download;
     DownloadManager downloadManager;
 
     @Override
@@ -158,7 +159,7 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
         textPackingChargesVQ = findViewById(R.id.textPackingChargesVQ);
         textBranchNameVQ = findViewById(R.id.textBranchNameVQ);
         textBillingAddressVQ =  findViewById(R.id.textBillingAddressVQ);
-        iv_image_download =  findViewById(R.id.iv_image_download);
+       // iv_image_download =  findViewById(R.id.iv_image_download);
         quotationInitialize();
         linearButtonsVQ = findViewById(R.id.linearButtonsVQ);
         btnDynamic = findViewById(R.id.btnDynamic);
@@ -252,13 +253,13 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
         });
 
 
-        iv_image_download.setOnClickListener(new View.OnClickListener() {
+      /*  iv_image_download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 callDownloadPdfList();
             }
         });
-
+*/
     }
     private void callDownloadPdfList() {
         HashMap<String, String> map = new HashMap<>();
@@ -317,6 +318,12 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
                     startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "No product fround in this quotation", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            }
+            case R.id.downloadQuotation: {
+                if (arrayList.size() != 0) {
+                    callDownloadPdfList();
                 }
                 break;
             }
@@ -553,7 +560,7 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
                         String pdf_name=jsonObject.getString("pdf_name");
                         String url=ServerConstants.serverUrl.BASE_URL+folder_path+pdf_name;
 
-                        if (pdf_name.equalsIgnoreCase("null"))
+                        /*if (pdf_name.equalsIgnoreCase("null"))
                         {
                             iv_image_download.setVisibility(View.GONE);
 
@@ -561,7 +568,8 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
                         else {
                             iv_image_download.setVisibility(View.VISIBLE);
                             downloadQuotationPdfList(url);
-                        }
+                        }*/
+                        downloadQuotationPdfList(url);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -630,17 +638,22 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
         switch (status) {
             case "0": {
                 toHideEdit = true;
+                toDownloadEdit = true;
                 invalidateOptionsMenu();
                 textStatusVQ.setText(StaticContent.QuotationStatusCode.ZERO);
                 textStatusVQ.setTextColor(getResources().getColor(android.R.color.holo_red_light));
                 break;
             }
             case "1": {
+                toDownloadEdit = true;
+                invalidateOptionsMenu();
                 textStatusVQ.setText(StaticContent.QuotationStatusCode.ONE);
                 textStatusVQ.setTextColor(getResources().getColor(R.color.yellow));
                 break;
             }
             case "2": {
+                toDownloadEdit = true;
+                invalidateOptionsMenu();
                 textStatusVQ.setText(StaticContent.QuotationStatusCode.TWO);
                 textStatusVQ.setTextColor(getResources().getColor(R.color.yellow));
                 break;
@@ -651,6 +664,7 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
                 break;
             }
             case "4": {
+                toDownloadEdit = true;
                 toHideEdit = true;
                 invalidateOptionsMenu();
                 textStatusVQ.setText(StaticContent.QuotationStatusCode.FOUR);
@@ -658,11 +672,14 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
                 break;
             }
             case "5": {
+                toDownloadEdit = true;
+                invalidateOptionsMenu();
                 textStatusVQ.setText(StaticContent.QuotationStatusCode.FIVE);
                 textStatusVQ.setTextColor(getResources().getColor(R.color.yellow));
                 break;
             }
             case "6": {
+                toDownloadEdit = true;
                 toHideEdit = true;
                 invalidateOptionsMenu();
                 textStatusVQ.setText(StaticContent.QuotationStatusCode.SIX);
@@ -687,6 +704,11 @@ public class ViewQuotationActivity extends AppCompatActivity implements VolleyCo
             menu.getItem(0).setVisible(false);
 
         }
+        if(toDownloadEdit)
+        {
+            menu.getItem(1).setVisible(false);
+        }
+
         return true;
     }
 

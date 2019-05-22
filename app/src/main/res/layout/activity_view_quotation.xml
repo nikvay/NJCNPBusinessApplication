@@ -30,14 +30,13 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
 
-            <ImageView
+        <!--    <ImageView
                 android:id="@+id/iv_image_download"
                 android:layout_width="40dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="50dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/ic_vector_download"
-                android:visibility="gone" />
+                android:src="@drawable/ic_vector_download" />-->
 
         </android.support.v7.widget.Toolbar>
 

@@ -2,11 +2,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.nikvay.cnp_master.activity.MainActivity">
+
     <item
         android:id="@+id/actionEdit"
         android:orderInCategory="100"
         android:title="Edit"
         app:showAsAction="always" />
+
+
+
+    <item
+        android:id="@+id/downloadQuotation"
+        android:orderInCategory="100"
+        android:title="Quotation Pdf"
+        app:showAsAction="always"></item>
 
 
 </menu>
