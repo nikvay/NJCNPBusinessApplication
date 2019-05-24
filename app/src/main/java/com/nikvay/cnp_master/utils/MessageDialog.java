@@ -29,7 +29,7 @@ public class MessageDialog {
 
         textDisplayMesageDialog.setText(message);
         Window window = dialog.getWindow();
-        window.setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         Handler hand = new Handler();
         hand.postDelayed(new Runnable() {
