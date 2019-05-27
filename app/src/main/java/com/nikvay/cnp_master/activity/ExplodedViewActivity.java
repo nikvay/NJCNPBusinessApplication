@@ -336,7 +336,7 @@ public class ExplodedViewActivity extends AppCompatActivity implements VolleyCom
                             explodedViewAdapter = new ExplodedViewAdapter(this, explodedViewModelsArrayKList, true);
                             selectExplodedPdfDialog.show();
                             Window window = selectExplodedPdfDialog.getWindow();
-                            window.setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                             recyclerDialogEV.setAdapter(explodedViewAdapter);
 
                         }
@@ -383,7 +383,7 @@ public class ExplodedViewActivity extends AppCompatActivity implements VolleyCom
                     adapterC = new MyCustomerAdapter(getApplicationContext(), arrayListC, true, this, true);
                     selectCustomerDialog.show();
                     Window window = selectCustomerDialog.getWindow();
-                    window.setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     recyclerDialogSC.setAdapter(adapterC);
                 }
                 break;

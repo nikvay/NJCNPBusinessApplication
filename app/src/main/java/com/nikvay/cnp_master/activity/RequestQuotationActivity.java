@@ -126,6 +126,7 @@ public class RequestQuotationActivity extends AppCompatActivity implements Volle
     private FloatingActionButton selectCustomerDialogFab,selectProductDialogFab, selectCategoryDialogFab;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -825,7 +826,7 @@ public class RequestQuotationActivity extends AppCompatActivity implements Volle
                     adapterC = new MyCustomerAdapter(getApplicationContext(), arrayListC, true);
                     selectCustomerDialog.show();
                     Window window = selectCustomerDialog.getWindow();
-                    window.setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     recyclerDialogSC.setAdapter(adapterC);
                 }
                 break;
@@ -873,7 +874,7 @@ public class RequestQuotationActivity extends AppCompatActivity implements Volle
                             selectProductDialog.show();
                             productArrayListShow.clear();
                             Window window = selectProductDialog.getWindow();
-                            window.setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                             recyclerDialogSP.setAdapter(productListAdapter);
                         } else {
                             Toast.makeText(getApplicationContext(), "No product found", Toast.LENGTH_SHORT).show();
@@ -929,7 +930,7 @@ public class RequestQuotationActivity extends AppCompatActivity implements Volle
                             }
                             selectCategoryDialog.show();
                             Window window = selectCategoryDialog.getWindow();
-                            window.setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                             productTypeAdapter = new ProductTypeAdapter(arrayListtype, this);
                             recyclerPT.setAdapter(productTypeAdapter);
                         } else {

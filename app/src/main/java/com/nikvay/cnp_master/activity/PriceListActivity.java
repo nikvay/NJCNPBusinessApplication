@@ -364,7 +364,7 @@ public class PriceListActivity extends AppCompatActivity implements VolleyComple
                             selectProductPrice.show();
 
                             Window window = selectProductPrice.getWindow();
-                            window.setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                             recyclerView_product_price.setAdapter(productPriceRecyclerAdapter);
 
                             adapterOnClick();

@@ -406,7 +406,7 @@ public class CNPProfileActivity extends AppCompatActivity implements VolleyCompl
                             cnpProfileAdapter = new CNPProfileAdapter(this, explodedViewModelsArrayKList, true);
                             selectExplodedPdfDialog.show();
                             Window window = selectExplodedPdfDialog.getWindow();
-                            window.setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                            window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                             recyclerDialogEV.setAdapter(cnpProfileAdapter);
 
                         }

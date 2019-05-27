@@ -378,7 +378,7 @@ public class CNPApplicationActivity extends AppCompatActivity implements VolleyC
                     adapterC = new MyCustomerAdapter(getApplicationContext(), arrayListC, true, this, true);
                     selectCustomerDialog.show();
                     Window window = selectCustomerDialog.getWindow();
-                    window.setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     recyclerDialogSC.setAdapter(adapterC);
                 }
                 break;
