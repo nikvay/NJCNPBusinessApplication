@@ -257,8 +257,8 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 textOutstandingMCA,
                 textCustomerNumberMCA,
                 textBudget,
-
-        textEditMCA;
+                textUptoSale,
+                textEditMCA;
         private CardView cardMyCustomerAdapter;
         private LinearLayout ll_sales;
         private ImageView textSale, ivEditMCA;
@@ -279,6 +279,8 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             textBudget = itemView.findViewById(R.id.textBudget);
             textSale = itemView.findViewById(R.id.textSale);
             ll_sales = itemView.findViewById(R.id.ll_sales);
+            ll_sales = itemView.findViewById(R.id.ll_sales);
+            textUptoSale = itemView.findViewById(R.id.textUptoSale);
 
         }
     }

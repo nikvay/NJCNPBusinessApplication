@@ -3,10 +3,17 @@ package com.nikvay.cnp_master.activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Vibrator;
+import android.provider.MediaStore;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,6 +21,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -23,6 +31,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.nikvay.cnp_master.R;
@@ -42,14 +51,23 @@ import com.nikvay.cnp_master.volley_support.VolleyCompleteListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 public class AddCollectionActivity extends AppCompatActivity implements VolleyCompleteListener, SelectCustomerInterface,SuccessDialogClosed {
     private AutoCompleteTextView textCustomerNameCollection,
             textAmountCollection,
             textBillCollection,
-            textCompanyNameCollection;
+            textCompanyNameCollection,
+            textBillDate,
+            textPhoto,
+            textRemark;
     private Button btnSubmitCollection;
     private UserData userData;
     private TextView textSelectCustomerVisitC;
@@ -63,6 +81,20 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
     private String mCustomerNameC = null;
     private EditText editSearchC;
     private SuccessDialog successDialog;
+    private FloatingActionButton floatingActionButton;
+    private String date;
+    private boolean isSelect = false;
+
+
+    // =========== Upload image ================
+    private static final int MY_CAMERA_REQUEST_CODE = 100;
+    private static final int MY_GALLERY_REQUEST_CODE = 2;
+    Bitmap bitmap;
+    Uri fileUri;
+    Uri imageUrl;
+    String photo;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +108,7 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
     }
 
     private void initialize() {
+        date= new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         VibrateOnClick.vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         userData = new UserData(getApplicationContext());
         successDialog = new SuccessDialog(this,true);
@@ -91,6 +124,7 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
         LinearLayoutManager manager = new LinearLayoutManager(getApplicationContext());
         recyclerDialogSC.setLayoutManager(manager);
         textCustomerNameCollection = findViewById(R.id.textCustomerNameCollection);
+        floatingActionButton = findViewById(R.id.fabUploadImage);
         textCustomerNameCollection.setEnabled(false);
         textAmountCollection =  findViewById(R.id.textAmountCollection);
         textBillCollection =  findViewById(R.id.textBillCollection);
@@ -98,6 +132,17 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
         textSelectCustomerVisitC = findViewById(R.id.textSelectCustomerVisitC);
         textSelectCustomerCHC =  findViewById(R.id.textSelectCustomerCHC);
         textCompanyNameCollection =  findViewById(R.id.textCompanyNameCollection);
+
+        textBillDate =  findViewById(R.id.textBillDate);
+        textPhoto =  findViewById(R.id.textPhoto);
+        textRemark =  findViewById(R.id.textRemark);
+
+
+        textPhoto.setEnabled(false);
+        textPhoto.setTextColor(getResources().getColor(android.R.color.darker_gray));
+        textBillDate.setText(date);
+        textPhoto.setEnabled(false);
+        textPhoto.setTextColor(getResources().getColor(android.R.color.darker_gray));
         events();
     }
 
@@ -175,6 +220,12 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
 
             }
         });
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPictureDialog();
+            }
+        });
     }
 
     private void callMyCustomerWS() {
@@ -216,6 +267,22 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
             textBillCollection.setError(null);
             textBillCollection.requestFocus();
         }
+
+        if (!isEmpty(textBillDate)) {
+            textBillDate.setError("Enter Bill Date");
+            textBillDate.requestFocus();
+            return false;
+        } else {
+            textBillDate.setError(null);
+            textBillDate.requestFocus();
+        }
+
+        if (!isSelect) {
+            Toast.makeText(this, "Please Upload Image", Toast.LENGTH_SHORT).show();
+        }
+
+
+
         return true;
     }
 
@@ -298,4 +365,82 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
     public void dialogClosed(boolean mClosed) {
         finish();
     }
+
+
+    // ===================================*** Image Upload Data ***=================================
+    private void showPictureDialog() {
+        final AlertDialog.Builder pictureDialog = new AlertDialog.Builder(AddCollectionActivity.this);
+        pictureDialog.setTitle("Select Action");
+        pictureDialog.setIcon(R.drawable.ic_vector_camera);
+        String[] pictureDialogItems = {"Select photo from gallery", "Capture photo from camera", "Cancel"};
+        pictureDialog.setCancelable(false);
+
+        pictureDialog.setItems(pictureDialogItems, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0:
+                        takeFromGallery();
+                        break;
+                    case 1:
+                        takeFromCamera();
+                        break;
+                    case 2:
+                        dialog.dismiss();
+                        break;
+                }
+            }
+        });
+        pictureDialog.show();
+    }
+
+    private void takeFromCamera() {
+        // Check if this device has a camera
+        if (getApplicationContext().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);    // Open default camera
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);             // start the image capture Intent
+            startActivityForResult(intent, MY_CAMERA_REQUEST_CODE);        //100
+        } else {
+            // no camera on this device
+            Toast.makeText(AddCollectionActivity.this, "Camera not supported", LENGTH_LONG).show();
+        }
+    }
+
+    private void takeFromGallery() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), MY_GALLERY_REQUEST_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            imageUrl = data.getData();
+            if (requestCode == MY_CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+                bitmap = (Bitmap) data.getExtras().get("data");
+
+            } else {
+                bitmap = MediaStore.Images.Media.getBitmap(AddCollectionActivity.this.getContentResolver(), imageUrl);
+            }
+            // ==== User Defined Method ======
+            convertToBase64(bitmap); //converting image to base64 string
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void convertToBase64(final Bitmap bitmap) {
+        ByteArrayOutputStream bAOS = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bAOS);
+        byte[] imageBytes = bAOS.toByteArray();
+        photo = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        textPhoto.setText("File Upload");
+        isSelect=true;
+
+    }// ===========*** End Image Upload Data ***=============
+
+
 }

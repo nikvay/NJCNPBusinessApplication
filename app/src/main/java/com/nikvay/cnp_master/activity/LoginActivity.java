@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -67,8 +68,9 @@ import java.util.Locale;
 public class LoginActivity extends AppCompatActivity implements VolleyCompleteListener, LocationListener {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
-    EditText edt_email, edt_password;
-    TextView txt_error_message;
+    // EditText edt_email, edt_password;
+     TextView txt_error_message;
+    TextInputEditText textEmail,textPassword;
     Button layoutLogin;
     SharedUtil sharedUtil;
 
@@ -130,9 +132,9 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
     private void initView() {
         sharedUtil = new SharedUtil(LoginActivity.this);
         VibrateOnClick.vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        edt_email = findViewById(R.id.edt_email);
-        edt_password = findViewById(R.id.edt_password);
-        edt_password.setTypeface(Typeface.DEFAULT);
+        textEmail = findViewById(R.id.textEmail);
+        textPassword = findViewById(R.id.textPassword);
+        textPassword.setTypeface(Typeface.DEFAULT);
         layoutLogin = findViewById(R.id.layoutLogin);
         txt_error_message = findViewById(R.id.txt_error_message);
 
@@ -141,8 +143,8 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
             public void onClick(View v) {
                 VibrateOnClick.vibrate();
                 //startLocationUpdates();
-                String email = edt_email.getText().toString();
-                String password = edt_password.getText().toString();
+                String email = textEmail.getText().toString();
+                String password = textPassword.getText().toString();
                 String status = ValidationUtil.vaildEmailPassword(email, password);
 
                 if (status.equals("success")) {

@@ -49,7 +49,7 @@ public class SuccessDialog {
         });
         textMesageDialog.setText(message);
         Window window = dialog.getWindow();
-        window.setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         if (isToclose) {
         }
         Handler hand = new Handler();

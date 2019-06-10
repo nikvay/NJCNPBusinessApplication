@@ -270,11 +270,39 @@ app:cardCornerRadius="@dimen/cardview_default_radius">
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:text="Sale:"
+            android:text="Old Sale:"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/textSale"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:src="@drawable/click_here"
+            android:textColor="@android:color/holo_red_dark"
+            tools:ignore="NewApi" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:id="@+id/ll_UptoSales"
+        android:weightSum="10">
+
+        <TextView
+            style="@style/TextField"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:text="Up to Sale:"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/textUptoSale"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
