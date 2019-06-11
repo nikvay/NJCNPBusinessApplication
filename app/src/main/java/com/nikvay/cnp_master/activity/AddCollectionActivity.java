@@ -108,7 +108,7 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
     }
 
     private void initialize() {
-        date= new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        date= new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         VibrateOnClick.vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         userData = new UserData(getApplicationContext());
         successDialog = new SuccessDialog(this,true);
@@ -141,8 +141,8 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
         textPhoto.setEnabled(false);
         textPhoto.setTextColor(getResources().getColor(android.R.color.darker_gray));
         textBillDate.setText(date);
-        textPhoto.setEnabled(false);
-        textPhoto.setTextColor(getResources().getColor(android.R.color.darker_gray));
+        textBillDate.setEnabled(false);
+        textBillDate.setTextColor(getResources().getColor(android.R.color.darker_gray));
         events();
     }
 
@@ -277,10 +277,6 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
             textBillDate.requestFocus();
         }
 
-        if (!isSelect) {
-            Toast.makeText(this, "Please Upload Image", Toast.LENGTH_SHORT).show();
-        }
-
 
 
         return true;
@@ -294,6 +290,12 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
         map.put("company_name", textCompanyNameCollection.getText().toString());
         map.put("amount", textAmountCollection.getText().toString());
         map.put("bill_no", textBillCollection.getText().toString());
+        map.put("date", textBillDate.getText().toString());
+        map.put("remark", textRemark.getText().toString());
+        if(!(photo==null))
+        {
+            map.put("photo", photo);
+        }
         new MyVolleyPostMethod(this, map, ServerConstants.ServiceCode.COLLECTION, true);
     }
 
@@ -336,7 +338,7 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
                     adapterC = new MyCustomerAdapter(getApplicationContext(), arrayListC, true, this, true);
                     selectCustomerDialog.show();
                     Window window = selectCustomerDialog.getWindow();
-                    window.setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     recyclerDialogSC.setAdapter(adapterC);
                 }
                 break;
@@ -437,7 +439,7 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
         bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bAOS);
         byte[] imageBytes = bAOS.toByteArray();
         photo = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        textPhoto.setText("File Upload");
+        textPhoto.setText("File Uploaded");
         isSelect=true;
 
     }// ===========*** End Image Upload Data ***=============

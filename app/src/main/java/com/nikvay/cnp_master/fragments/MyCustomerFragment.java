@@ -215,18 +215,20 @@ public class  MyCustomerFragment extends Fragment implements VolleyCompleteListe
                                 String budget=jdata.getString("budget");
                                //String sale=jdata.getString("sale");
 
-                                JSONArray saleArray = jdata.getJSONArray("sale");
+
+
+                                JSONArray uptoSaleArray = jdata.getJSONArray("sale");
 
                                 model = new MyCustomerModel();
-                                if (saleArray.length() > 0) {
+                                if (uptoSaleArray.length() > 0) {
 
-                                    JSONObject salesdata = saleArray.getJSONObject(0);
-                                    String year1 = salesdata.getString("year1");
-                                    String sale_count1 = salesdata.getString("sale_count1");
-                                    String year2 = salesdata.getString("year2");
-                                    String sale_count2 = salesdata.getString("sale_count2");
-                                    String year3 = salesdata.getString("year3");
-                                    String sale_count3 = salesdata.getString("sale_count3");
+                                    JSONObject uptoSalesData = uptoSaleArray.getJSONObject(0);
+                                    String year1 = uptoSalesData.getString("year1");
+                                    String sale_count1 = uptoSalesData.getString("sale_count1");
+                                    String year2 = uptoSalesData.getString("year2");
+                                    String sale_count2 = uptoSalesData.getString("sale_count2");
+                                    String year3 = uptoSalesData.getString("year3");
+                                    String sale_count3 = uptoSalesData.getString("sale_count3");
 
                                     model.setYear1(year1);
                                     model.setYear2(year2);
@@ -235,6 +237,66 @@ public class  MyCustomerFragment extends Fragment implements VolleyCompleteListe
                                     model.setSale_count2(sale_count2);
                                     model.setSale_count3(sale_count3);
                                 }
+
+                                JSONArray saleArray = jdata.getJSONArray("up_to_sale");
+
+                                model = new MyCustomerModel();
+                                if (saleArray.length() > 0) {
+                                    JSONObject salesdata = saleArray.getJSONObject(0);
+                                    String month1= salesdata.getString("month1");
+                                    String month1_count=salesdata.getString("month1_count");
+                                    String month2= salesdata.getString("month2");
+                                    String month2_count=salesdata.getString("month2_count");
+                                    String month3=salesdata.getString("month3");
+                                    String month3_count=salesdata.getString("month3_count");
+                                    String month4=salesdata.getString("month4");
+                                    String month4_count=salesdata.getString("month4_count");
+                                    String month5=salesdata.getString("month5");
+                                    String month5_count=salesdata.getString("month5_count");
+                                    String month6=salesdata.getString("month6");
+                                    String month6_count=salesdata.getString("month6_count");
+                                    String month7=salesdata.getString("month7");
+                                    String month7_count=salesdata.getString("month7_count");
+                                    String month8=salesdata.getString("month8");
+                                    String month8_count=salesdata.getString("month8_count");
+                                    String month9=salesdata.getString("month9");;
+                                    String month9_count=salesdata.getString("month9_count");
+                                    String month10=salesdata.getString("month10");
+                                    String month10_count=salesdata.getString("month10_count");
+                                    String month11=salesdata.getString("month11");
+                                    String month11_count=salesdata.getString("month11_count");
+                                    String month12=salesdata.getString("month12");
+                                    String month12_count=salesdata.getString("month12_count");
+
+                                    model.setMonth1(month1);
+                                    model.setMonth2(month2);
+                                    model.setMonth3(month3);
+                                    model.setMonth4(month4);
+                                    model.setMonth5(month5);
+                                    model.setMonth6(month6);
+                                    model.setMonth7(month7);
+                                    model.setMonth8(month8);
+                                    model.setMonth9(month9);
+                                    model.setMonth10(month10);
+                                    model.setMonth11(month11);
+                                    model.setMonth12(month12);
+
+                                    model.setMonth1_count(month1_count);
+                                    model.setMonth2_count(month2_count);
+                                    model.setMonth3_count(month3_count);
+                                    model.setMonth4_count(month4_count);
+                                    model.setMonth5_count(month5_count);
+                                    model.setMonth6_count(month6_count);
+                                    model.setMonth7_count(month7_count);
+                                    model.setMonth8_count(month8_count);
+                                    model.setMonth9_count(month9_count);
+                                    model.setMonth10_count(month10_count);
+                                    model.setMonth11_count(month11_count);
+                                    model.setMonth12_count(month12_count);
+
+
+                                }
+
 
                                 model.setC_id(c_id);
                                 model.setSale_person_id(sale_person_id);

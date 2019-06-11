@@ -1,16 +1,20 @@
 package com.nikvay.cnp_master.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nikvay.cnp_master.R;
+import com.nikvay.cnp_master.activity.AddDepositActivity;
 import com.nikvay.cnp_master.model.CollectionModel;
+import com.nikvay.cnp_master.utils.StaticContent;
 
 import java.util.ArrayList;
 
@@ -38,6 +42,7 @@ public class ViewCollectionAdapter extends RecyclerView.Adapter<ViewCollectionAd
         View v = LayoutInflater.from(context).inflate(R.layout.adapter_collection_list, parent, false);
         MyDataHolder myDataHolder = new MyDataHolder(v);
         return myDataHolder;
+
     }
 
     @Override
@@ -49,6 +54,24 @@ public class ViewCollectionAdapter extends RecyclerView.Adapter<ViewCollectionAd
         hold.textDateVC.setText(arrayList.get(position).getDate());
         hold.textBillNumberVC.setText(arrayList.get(position).getBill_no());
         hold.textCompanyNameVC.setText(arrayList.get(position).getCompany_name());
+        String is_deposit_amount=arrayList.get(position).getIs_deposit_amount();
+
+
+        if(is_deposit_amount.equalsIgnoreCase("1"))
+        {
+            hold.textDeposit.setText("Yes");
+            hold.iv_deposit.setVisibility(View.GONE);
+        }
+
+
+        hold.iv_deposit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, AddDepositActivity.class);
+                intent.putExtra(StaticContent.IntentType.COLLECTION_NUMBER,arrayList.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
 
         setScaleAnimation(holder.itemView);
     }
@@ -60,7 +83,9 @@ public class ViewCollectionAdapter extends RecyclerView.Adapter<ViewCollectionAd
                 textAmountVC,
                 textBillNumberVC,
                 textDateVC,
+                textDeposit,
                 textCompanyNameVC;
+        ImageView iv_deposit;
 
         public MyDataHolder(View v) {
             super(v);
@@ -70,6 +95,8 @@ public class ViewCollectionAdapter extends RecyclerView.Adapter<ViewCollectionAd
             textBillNumberVC =  v.findViewById(R.id.textBillNumberVC);
             textDateVC = v.findViewById(R.id.textDateVC);
             textCompanyNameVC = v.findViewById(R.id.textCompanyNameVC);
+            iv_deposit = v.findViewById(R.id.iv_deposit);
+            textDeposit = v.findViewById(R.id.textDeposit);
 
         }
     }

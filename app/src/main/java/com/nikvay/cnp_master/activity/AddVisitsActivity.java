@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 
 import com.nikvay.cnp_master.R;
+import com.nikvay.cnp_master.adapter.MutipleCustomerSelectionAdapter;
 import com.nikvay.cnp_master.adapter.MyCustomerAdapter;
 import com.nikvay.cnp_master.common.ServerConstants;
 import com.nikvay.cnp_master.common.VibrateOnClick;
@@ -63,13 +64,13 @@ public class AddVisitsActivity extends AppCompatActivity implements VolleyComple
     private TextView textSelectCustomerVisit;
     private MyCustomerResponse myCustomerResponse;
     private ArrayList<MyCustomerModel> arrayListC = new ArrayList<>();
-    private MyCustomerAdapter adapterC;
+    private MutipleCustomerSelectionAdapter adapterC;
     private Dialog selectCustomerDialog, hoDetailDialog;
     private Button btnOkDialogSC, btnCancelDialogSC;
     private RecyclerView recyclerDialogSC;
     private String mCustomerName;
     private SuccessDialog successDialog;
-    private Spinner spinnerTypeVisit;
+   // private Spinner spinnerTypeVisit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +109,7 @@ public class AddVisitsActivity extends AppCompatActivity implements VolleyComple
         selectCustomerDialog.setContentView(R.layout.dialog_select_customer);
         selectCustomerDialog.setCancelable(false);
 
-        spinnerTypeVisit = findViewById(R.id.spinnerTypeVisit);
+       // spinnerTypeVisit = findViewById(R.id.spinnerTypeVisit);
         btnOkDialogSC =  selectCustomerDialog.findViewById(R.id.btnOkDialogSC);
         btnCancelDialogSC = selectCustomerDialog.findViewById(R.id.btnCancelDialogSC);
         editSearchC =  selectCustomerDialog.findViewById(R.id.editSearchC);
@@ -240,7 +241,7 @@ public class AddVisitsActivity extends AppCompatActivity implements VolleyComple
         map.put("tel", textPhoneVisits.getText().toString());
         map.put("email", textEmailIdVisits.getText().toString());
         map.put("msg", textMessageVisit.getText().toString());
-        map.put("type ", spinnerTypeVisit.getSelectedItemPosition() == 1 ? "1" : "2");
+      //  map.put("type ", spinnerTypeVisit.getSelectedItemPosition() == 1 ? "1" : "2");
         new MyVolleyPostMethod(this, map, ServerConstants.ServiceCode.ADD_VISITS, true);
     }
 
@@ -279,10 +280,10 @@ public class AddVisitsActivity extends AppCompatActivity implements VolleyComple
                 textEmailIdVisits.requestFocus();
             }
         }
-        if (spinnerTypeVisit.getSelectedItemPosition() == 0) {
+       /* if (spinnerTypeVisit.getSelectedItemPosition() == 0) {
             Toast.makeText(this, "Select type", Toast.LENGTH_SHORT).show();
             return false;
-        }
+        }*/
 
         return true;
     }
@@ -319,10 +320,10 @@ public class AddVisitsActivity extends AppCompatActivity implements VolleyComple
                 arrayListC.clear();
                 arrayListC = myCustomerResponse.getCustomerResponse(response);
                 if (arrayListC != null) {
-                    adapterC = new MyCustomerAdapter(getApplicationContext(), arrayListC, true, this, true);
+                    adapterC = new MutipleCustomerSelectionAdapter(getApplicationContext(), arrayListC, true, this, true);
                     selectCustomerDialog.show();
                     Window window = selectCustomerDialog.getWindow();
-                    window.setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     recyclerDialogSC.setAdapter(adapterC);
                 }
                 break;
@@ -360,7 +361,7 @@ public class AddVisitsActivity extends AppCompatActivity implements VolleyComple
         } else if (id == R.id.visit_HodDetail) {
             hoDetailDialog.show();
             Window window = hoDetailDialog.getWindow();
-            window.setLayout(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         }
 
         return super.onOptionsItemSelected(item);

@@ -143,7 +143,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     if (hold.editQuantityPLA.getText().toString().isEmpty()) {
                         hold.editQuantityPLA.setText("1");
                     }
-
                     //  arrayList.get(position).setApplied(true);
                     if (Integer.valueOf(hold.editQuantityPLA.getText().toString()) > 0 && !hold.editQuantityPLA.getText().toString().isEmpty()) {
                         arrayList.get(position).setQuantity(hold.editQuantityPLA.getText().toString());

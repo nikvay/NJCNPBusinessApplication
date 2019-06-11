@@ -72,6 +72,8 @@ public class StaticContent {
     public class IntentType {
         public static final String QUOTATION_COUNT = "quotation-count";
         public static final String QUOTATION_NUMBER = "quotation-number";
+        public static final String COLLECTION_NUMBER = "Collection-number";
+        public static final String SALES_PERSON_ID = "Sales-person-id";
 
     }
 

@@ -38,7 +38,7 @@ public class ServerConstants {
         public static final String GET_PRODUCT = BASE_URL + "ws-get-product-list";
         public static final String ADD_QUOTATION = BASE_URL + "ws-add-quotation";
         public static final String QUOTATION_LIST = BASE_URL + "ws-list-quotation";
-            public static final String VIEW_QUOTATION = BASE_URL + "ws-view-quotation";
+        public static final String VIEW_QUOTATION = BASE_URL + "ws-view-quotation";
         public static final String CHANGE_STATUS = BASE_URL + "ws-change-status";
         public static final String SEND_MAIL = BASE_URL + "ws-send-quote-mail";
         public static final String GET_OUTSTANDING_AMOUNT = BASE_URL + "ws-get-outstanding-amount";
@@ -69,6 +69,7 @@ public class ServerConstants {
         public static final String  MY_PERFORMANCE= BASE_URL + "ws-user-performance";
         public static final String  QUOTATION_LIST_COUNT= BASE_URL + "ws-user-quote-list-count";
         public static final String  QUOTATION_PDF_LIST= BASE_URL + "ws-quote-list-pdf";
+        public static final String  COLLECTION_DEPOSIT= BASE_URL + "ws-collection-deposit";
 
     }
 
@@ -124,6 +125,7 @@ public class ServerConstants {
         public  static final int MY_PERFORMANCE=146;
         public  static final int QUOTATION_LIST_COUNT=147;
         public  static final int QUOTATION_PDF_LIST=148;
+        public  static final int COLLECTION_DEPOSIT=149;
 
     }
 

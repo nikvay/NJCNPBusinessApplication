@@ -283,6 +283,7 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
                                 String amount = jdata.getString("amount");
                                 String bill_no = jdata.getString("bill_no");
                                 String date = jdata.getString("date");
+                                String is_deposit_amount = jdata.getString("is_deposit_amount");
                                 collectionModel = new CollectionModel();
                                 collectionModel.setId(id);
                                 collectionModel.setSales_person_id(sales_person_id);
@@ -291,6 +292,7 @@ public class CommonVisitCollectionActivity extends AppCompatActivity implements 
                                 collectionModel.setAmount(amount);
                                 collectionModel.setBill_no(bill_no);
                                 collectionModel.setDate(date);
+                                collectionModel.setIs_deposit_amount(is_deposit_amount);
                                 collectionArrayList.add(collectionModel);
                             }
                             collectionAdapter = new ViewCollectionAdapter(getApplicationContext(), collectionArrayList);

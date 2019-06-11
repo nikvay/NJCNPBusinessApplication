@@ -8,6 +8,7 @@ public class CollectionModel {
     String bill_no;
     String date;
     String company_name;
+    String is_deposit_amount;
 
     public String getCompany_name() {
         return company_name;
@@ -66,5 +67,13 @@ public class CollectionModel {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getIs_deposit_amount() {
+        return is_deposit_amount;
+    }
+
+    public void setIs_deposit_amount(String is_deposit_amount) {
+        this.is_deposit_amount = is_deposit_amount;
     }
 }
