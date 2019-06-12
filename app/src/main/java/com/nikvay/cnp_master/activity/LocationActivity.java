@@ -57,8 +57,6 @@ public class LocationActivity extends AppCompatActivity {
     private Boolean mRequestingLocationUpdates;
     private static final int REQUEST_CHECK_SETTINGS = 100;
     private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
-
-
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 1000;
     private MapUtility mapUtility;
     private static final String TAG = LocationActivity.class.getSimpleName();
@@ -167,8 +165,7 @@ public class LocationActivity extends AppCompatActivity {
         builder.addLocationRequest(mLocationRequest);
         mLocationSettingsRequest = builder.build();
     }
-
-   /* private void updateLocationUI() {
+    private void updateLocationUI() {
         if (mCurrentLocation != null) {
             LoginActivity.shareLatitude = mCurrentLocation.getLatitude();
             LoginActivity.shareLongitude = mCurrentLocation.getLongitude();
@@ -176,7 +173,6 @@ public class LocationActivity extends AppCompatActivity {
 
         }
     }
-*/
     private void startLocationUpdates() {
         mSettingsClient
                 .checkLocationSettings(mLocationSettingsRequest)
@@ -218,7 +214,7 @@ public class LocationActivity extends AppCompatActivity {
 
                         }
 
-                     //   updateLocationUI();
+                       updateLocationUI();
                     }
                 });
     }

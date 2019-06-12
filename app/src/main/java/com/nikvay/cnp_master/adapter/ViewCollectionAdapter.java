@@ -68,6 +68,7 @@ public class ViewCollectionAdapter extends RecyclerView.Adapter<ViewCollectionAd
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context, AddDepositActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(StaticContent.IntentType.COLLECTION_NUMBER,arrayList.get(position).getId());
                 context.startActivity(intent);
             }

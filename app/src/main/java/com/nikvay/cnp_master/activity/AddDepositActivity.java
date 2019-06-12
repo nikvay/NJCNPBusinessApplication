@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AutoCompleteTextView;
@@ -20,14 +21,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.nikvay.cnp_master.R;
 import com.nikvay.cnp_master.adapter.MyCustomerAdapter;
+import com.nikvay.cnp_master.apicallcommon.ApiClient;
+import com.nikvay.cnp_master.apicallcommon.ApiInterface;
 import com.nikvay.cnp_master.common.ServerConstants;
+import com.nikvay.cnp_master.model.SuccessModel;
+import com.nikvay.cnp_master.utils.NetworkUtils;
 import com.nikvay.cnp_master.utils.StaticContent;
 import com.nikvay.cnp_master.utils.SuccessDialog;
 import com.nikvay.cnp_master.utils.SuccessDialogClosed;
 import com.nikvay.cnp_master.utils.UserData;
 import com.nikvay.cnp_master.volley_support.MyVolleyPostMethod;
+import com.nikvay.cnp_master.volley_support.ShowLoader;
 import com.nikvay.cnp_master.volley_support.VolleyCompleteListener;
 
 import org.json.JSONException;
@@ -35,6 +42,10 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.widget.Toast.LENGTH_LONG;
 
@@ -47,6 +58,8 @@ public class AddDepositActivity extends AppCompatActivity implements VolleyCompl
     private AutoCompleteTextView textDescription, textPhoto;
     private Button btnSubmitDeposit;
     private SuccessDialog successDialog;
+    private ApiInterface apiInterface;
+    ShowLoader showLoader;
 
 
     // =========== Upload image ================
@@ -55,7 +68,7 @@ public class AddDepositActivity extends AppCompatActivity implements VolleyCompl
     Bitmap bitmap;
     Uri fileUri;
     Uri imageUrl;
-    String photo;
+    String photo,TAG = getClass().getSimpleName();;
     private boolean isSelect = false;
 
 
@@ -70,6 +83,8 @@ public class AddDepositActivity extends AppCompatActivity implements VolleyCompl
 
     private void initialize() {
         userData = new UserData(getApplicationContext());
+        showLoader = new ShowLoader(AddDepositActivity.this);
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
         iv_back_image_activity = findViewById(R.id.iv_back_image_activity);
         fabUploadImage = findViewById(R.id.fabUploadImage);
         textDescription = findViewById(R.id.textDescription);
@@ -86,7 +101,7 @@ public class AddDepositActivity extends AppCompatActivity implements VolleyCompl
         }
 
         sales_person_id = userData.getUserData(StaticContent.UserData.USER_ID);
-        Toast.makeText(this, collection_id + " " + sales_person_id, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, collection_id + " " + sales_person_id, Toast.LENGTH_SHORT).show();
 
        successDialog = new SuccessDialog(this, true);
     }
@@ -108,7 +123,14 @@ public class AddDepositActivity extends AppCompatActivity implements VolleyCompl
                     textDescription.setError("Enter Description");
                     textDescription.requestFocus();
                 } else {
-                    callSubmitDepositWS();
+
+                    if (NetworkUtils.isNetworkAvailable(AddDepositActivity.this))
+                        callCollectionDeposit();
+                    else
+                        NetworkUtils.isNetworkNotAvailable(AddDepositActivity.this);
+
+                    //callSubmitDepositWS();
+
                 }
 
             }
@@ -245,5 +267,55 @@ public class AddDepositActivity extends AppCompatActivity implements VolleyCompl
     @Override
     public void dialogClosed(boolean mClosed) {
         finish();
+    }
+
+
+
+    private void callCollectionDeposit() {
+
+        String sales_person_id=userData.getUserData(StaticContent.UserData.USER_ID);
+
+
+        showLoader.showDialog();
+        Call<SuccessModel> call = apiInterface.addCollectionDeposit(sales_person_id,description,collection_id,photo);
+        call.enqueue(new Callback<SuccessModel>() {
+            @Override
+            public void onResponse(Call<SuccessModel> call, Response<SuccessModel> response) {
+                showLoader.dismissDialog();
+                String str_response = new Gson().toJson(response.body());
+                Log.e("" + TAG, "Response >>>>" + str_response);
+
+                try {
+                    if (response.isSuccessful()) {
+                        SuccessModel successModel = response.body();
+
+                        String message = null, code = null;
+                        if (successModel != null) {
+                            message = successModel.getMsg();
+                            code = successModel.getError_code();
+
+                            if (code.equalsIgnoreCase("1")) {
+                                CommonVisitCollectionActivity.isAdded = true;
+                                successDialog.showDialog( "Collection Deposit added successfully",true);
+
+                            } else {
+                                Toast.makeText(AddDepositActivity.this, "Deposit Not Added", Toast.LENGTH_SHORT).show();
+                            }
+
+
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<SuccessModel> call, Throwable t) {
+                showLoader.dismissDialog();
+            }
+        });
+
     }
 }

@@ -65,23 +65,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class LoginActivity extends AppCompatActivity implements VolleyCompleteListener, LocationListener {
+public class LoginActivity extends AppCompatActivity implements VolleyCompleteListener {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     // EditText edt_email, edt_password;
-     TextView txt_error_message;
-    TextInputEditText textEmail,textPassword;
+    TextView txt_error_message;
+    TextInputEditText textEmail, textPassword;
     Button layoutLogin;
     SharedUtil sharedUtil;
 
 
-
-    String address,token;
-    LocationManager locationManager;
-
+    String address, token;
+    /* LocationManager locationManager;*/
 
 
-  /*  private FusedLocationProviderClient mFusedLocationClient;
+    private FusedLocationProviderClient mFusedLocationClient;
     private SettingsClient mSettingsClient;
     private LocationRequest mLocationRequest;
     private LocationSettingsRequest mLocationSettingsRequest;
@@ -98,11 +96,11 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
     // than your app can handle
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 1000;
     private MapUtility mapUtility;
-*/
 
 
     private GoogleApiClient googleApiClient;
-    protected static final int REQUEST_CHECK_SETTINGS = 0x1;
+
+    // protected static final int REQUEST_CHECK_SETTINGS = 0x1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,22 +109,22 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
 
         token = sharedUtil.getDeviceToken(LoginActivity.this);
 
-        googleApiClient = getAPIClientInstance();
+        /*googleApiClient = getAPIClientInstance();
         if (googleApiClient != null) {
             googleApiClient.connect();
         }
-
+*/
         initView();
-        getLocation();
+        //getLocation();
 
-      /*  mapUtility = new MapUtility(LoginActivity.this);
+        mapUtility = new MapUtility(LoginActivity.this);
         init();
         if (mapUtility.getGPSstatus()) {
             mRequestingLocationUpdates = true;
             startLocationUpdates();
-        }else {
+        } else {
             mapUtility.displayLocationSettingsRequest(getApplicationContext());
-        }*/
+        }
     }
 
     private void initView() {
@@ -142,14 +140,14 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
             @Override
             public void onClick(View v) {
                 VibrateOnClick.vibrate();
-                //startLocationUpdates();
+                startLocationUpdates();
                 String email = textEmail.getText().toString();
                 String password = textPassword.getText().toString();
                 String status = ValidationUtil.vaildEmailPassword(email, password);
 
                 if (status.equals("success")) {
                     txt_error_message.setText("");
-                    callWebServices(email, password,token);
+                    callWebServices(email, password, token);
                 } else {
                     txt_error_message.setText(status);
                 }
@@ -160,8 +158,8 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
 
     }
 
-    private void callWebServices(String email, String password,String token) {
-        // String address = mapUtility.getCompleteAddressString(LoginActivity.shareLatitude, LoginActivity.shareLongitude);
+    private void callWebServices(String email, String password, String token) {
+        String address = mapUtility.getCompleteAddressString(LoginActivity.shareLatitude, LoginActivity.shareLongitude);
 
         if (address != null && !address.equals("")) {
             HashMap<String, String> map = new HashMap<String, String>();
@@ -172,8 +170,9 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
             map.put("firebase_id", token);
             new MyVolleyPostMethod(LoginActivity.this, map, ServerConstants.ServiceCode.LOGIN, true);
         } else {
-            getLocation();
-           // Toast.makeText(getApplicationContext(), "Please wait for 10 sec", Toast.LENGTH_SHORT).show();
+            startLocationUpdates();
+            //getLocation();
+            // Toast.makeText(getApplicationContext(), "Please wait for 10 sec", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -210,7 +209,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
         }
     }
 
-  /*  private void init() {
+    private void init() {
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mSettingsClient = LocationServices.getSettingsClient(this);
 
@@ -334,7 +333,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
             // pausing location updates
             stopLocationUpdates();
         }
-    }*/
+    }
 
     @Override
     public void onBackPressed() {
@@ -343,11 +342,11 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
     }
 
 
-    void getLocation() {
+  /*  void getLocation() {
         try {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-            locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+             locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         } catch (SecurityException e) {
             e.printStackTrace();
         }
@@ -431,5 +430,6 @@ public class LoginActivity extends AppCompatActivity implements VolleyCompleteLi
                 }
             }
         });
-    }
+    }*/
 }
+

@@ -1,6 +1,7 @@
 package com.nikvay.cnp_master.activity;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -22,6 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -34,18 +36,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.gson.Gson;
 import com.nikvay.cnp_master.R;
 import com.nikvay.cnp_master.adapter.MyCustomerAdapter;
+import com.nikvay.cnp_master.apicallcommon.ApiClient;
+import com.nikvay.cnp_master.apicallcommon.ApiInterface;
 import com.nikvay.cnp_master.common.ServerConstants;
 import com.nikvay.cnp_master.common.VibrateOnClick;
 import com.nikvay.cnp_master.model.MyCustomerModel;
+import com.nikvay.cnp_master.model.SuccessModel;
 import com.nikvay.cnp_master.utils.MyCustomerResponse;
+import com.nikvay.cnp_master.utils.NetworkUtils;
 import com.nikvay.cnp_master.utils.SelectCustomerInterface;
 import com.nikvay.cnp_master.utils.StaticContent;
 import com.nikvay.cnp_master.utils.SuccessDialog;
 import com.nikvay.cnp_master.utils.SuccessDialogClosed;
 import com.nikvay.cnp_master.utils.UserData;
 import com.nikvay.cnp_master.volley_support.MyVolleyPostMethod;
+import com.nikvay.cnp_master.volley_support.ShowLoader;
 import com.nikvay.cnp_master.volley_support.VolleyCompleteListener;
 
 import org.json.JSONException;
@@ -57,6 +65,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static android.widget.Toast.LENGTH_LONG;
 
@@ -82,9 +94,10 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
     private EditText editSearchC;
     private SuccessDialog successDialog;
     private FloatingActionButton floatingActionButton;
-    private String date;
+    private String date,TAG = getClass().getSimpleName();
     private boolean isSelect = false;
-
+    private ApiInterface apiInterface;
+    ShowLoader showLoader;
 
     // =========== Upload image ================
     private static final int MY_CAMERA_REQUEST_CODE = 100;
@@ -109,6 +122,8 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
 
     private void initialize() {
         date= new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        showLoader = new ShowLoader(AddCollectionActivity.this);
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
         VibrateOnClick.vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         userData = new UserData(getApplicationContext());
         successDialog = new SuccessDialog(this,true);
@@ -167,7 +182,13 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
             public void onClick(View v) {
                 VibrateOnClick.vibrate();
                 if (isValid()) {
-                    callCollectionWS();
+                    //callCollectionWS();
+                    if (NetworkUtils.isNetworkAvailable(AddCollectionActivity.this))
+                        callCollectionAdd();
+                    else
+                        NetworkUtils.isNetworkNotAvailable(AddCollectionActivity.this);
+
+
                 }
             }
         });
@@ -444,5 +465,59 @@ public class AddCollectionActivity extends AppCompatActivity implements VolleyCo
 
     }// ===========*** End Image Upload Data ***=============
 
+
+    private void callCollectionAdd() {
+
+        String sales_person_id=userData.getUserData(StaticContent.UserData.USER_ID);
+        String cust_name= textCustomerNameCollection.getText().toString();
+        String company_name= textCustomerNameCollection.getText().toString();
+        String amount=textAmountCollection.getText().toString();
+        String bill_no=textBillCollection.getText().toString();
+        String date=textBillDate.getText().toString();
+        String remark=textRemark.getText().toString();
+
+
+        showLoader.showDialog();
+        Call<SuccessModel> call = apiInterface.addCollection(sales_person_id,cust_name,company_name,amount,bill_no,date,remark,photo);
+        call.enqueue(new Callback<SuccessModel>() {
+            @Override
+            public void onResponse(Call<SuccessModel> call, Response<SuccessModel> response) {
+                showLoader.dismissDialog();
+                String str_response = new Gson().toJson(response.body());
+                Log.e("" + TAG, "Response >>>>" + str_response);
+
+                try {
+                    if (response.isSuccessful()) {
+                        SuccessModel successModel = response.body();
+
+                        String message = null, code = null;
+                        if (successModel != null) {
+                            message = successModel.getMsg();
+                            code = successModel.getError_code();
+
+                            if (code.equalsIgnoreCase("1")) {
+                                CommonVisitCollectionActivity.isAdded = true;
+                                successDialog.showDialog( "Collection added successfully",true);
+
+                            } else {
+                                Toast.makeText(AddCollectionActivity.this, "Response Wrong", Toast.LENGTH_SHORT).show();
+                            }
+
+
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            @Override
+            public void onFailure(Call<SuccessModel> call, Throwable t) {
+                showLoader.dismissDialog();
+            }
+        });
+
+    }
 
 }
