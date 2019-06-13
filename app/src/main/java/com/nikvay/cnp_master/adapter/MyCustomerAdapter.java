@@ -328,6 +328,7 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         });
         if (isDialog) {
             hold.ll_sales.setVisibility(View.GONE);
+            hold.ll_UptoSales.setVisibility(View.GONE);
             hold.cardMyCustomerAdapter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -394,7 +395,7 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 textBudget,
                 textEditMCA;
         private CardView cardMyCustomerAdapter;
-        private LinearLayout ll_sales;
+        private LinearLayout ll_sales,ll_UptoSales;
         private ImageView textSale, ivEditMCA, textUptoSale;
 
         public Data(View itemView) {
@@ -415,6 +416,7 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ll_sales = itemView.findViewById(R.id.ll_sales);
             ll_sales = itemView.findViewById(R.id.ll_sales);
             textUptoSale = itemView.findViewById(R.id.textUptoSale);
+            ll_UptoSales = itemView.findViewById(R.id.ll_UptoSales);
 
         }
     }

@@ -44,141 +44,10 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:cardBackgroundColor="@color/cardview_light_background"
-            app:cardCornerRadius="@dimen/cardview_default_radius">
-
-            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textSelectCustomerVisit"
-                    style="@style/TextAppearance.AppCompat.Medium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:gravity="right"
-                    android:text="Select Customer "
-                    android:textColor="@color/orange" />
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/textCustomerNameVisit"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:gravity="center|left"
-                        android:hint="Customer Name"
-                        android:inputType="textPersonName"
-                        android:paddingLeft="20dp"
-                        android:textColor="@color/colorPrimary" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/textContactPersonVisits"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:gravity="center|left"
-                        android:hint="Contact Person"
-                        android:inputType="textPersonName"
-                        android:paddingLeft="20dp"
-                        android:textColor="@color/colorPrimary" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/textPhoneVisits"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:gravity="center|left"
-                        android:hint="Phone Number"
-                        android:inputType="phone"
-                        android:maxLength="10"
-                        android:paddingLeft="20dp"
-                        android:singleLine="true"
-                        android:textColor="@color/colorPrimary" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/textEmailIdVisits"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:gravity="center|left"
-                        android:hint="Email Id"
-                        android:inputType="textEmailAddress"
-                        android:paddingLeft="20dp"
-                        android:singleLine="true"
-                        android:textColor="@color/colorPrimary" />
-
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/textMessageVisit"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:gravity="center|left"
-                        android:hint="Message"
-                        android:inputType="textLongMessage"
-                        android:paddingLeft="20dp"
-                        android:textColor="@color/colorPrimary" />
-
-                </android.support.design.widget.TextInputLayout>
-
-          <!--      <Spinner
-                    android:id="@+id/spinnerTypeVisit"
-                    style="@style/Base.Widget.AppCompat.DropDownItem.Spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:entries="@array/lunch_type" />-->
-
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-
-
-
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:visibility="gone"
-                android:id="@+id/multiple"
                 app:cardBackgroundColor="@color/cardview_light_background"
                 app:cardCornerRadius="@dimen/cardview_default_radius">
 
@@ -189,28 +58,150 @@
                     android:layout_marginBottom="20dp"
                     android:orientation="vertical">
 
-
-                    <android.support.v7.widget.RecyclerView
+                    <TextView
+                        android:id="@+id/textSelectCustomerVisit"
+                        style="@style/TextAppearance.AppCompat.Medium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/recyclerViewMutipleVisit"/>
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:gravity="right"
+                        android:text="Select Customer "
+                        android:textColor="@color/orange" />
 
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2">
 
+                        <AutoCompleteTextView
+                            android:id="@+id/textCustomerNameVisit"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:gravity="center|left"
+                            android:hint="Customer Name"
+                            android:inputType="textPersonName"
+                            android:paddingLeft="20dp"
+                            android:textColor="@color/colorPrimary" />
+                    </android.support.design.widget.TextInputLayout>
 
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/textContactPersonVisits"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:gravity="center|left"
+                            android:hint="Contact Person"
+                            android:inputType="textPersonName"
+                            android:paddingLeft="20dp"
+                            android:textColor="@color/colorPrimary" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/textPhoneVisits"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:gravity="center|left"
+                            android:hint="Phone Number"
+                            android:inputType="phone"
+                            android:maxLength="10"
+                            android:paddingLeft="20dp"
+                            android:singleLine="true"
+                            android:textColor="@color/colorPrimary" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/textEmailIdVisits"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:gravity="center|left"
+                            android:hint="Email Id"
+                            android:inputType="textEmailAddress"
+                            android:paddingLeft="20dp"
+                            android:singleLine="true"
+                            android:textColor="@color/colorPrimary" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/textMessageVisit"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:gravity="center|left"
+                            android:hint="Message"
+                            android:inputType="textLongMessage"
+                            android:paddingLeft="20dp"
+                            android:textColor="@color/colorPrimary" />
+
+                    </android.support.design.widget.TextInputLayout>
+
+                    <!--      <Spinner
+                              android:id="@+id/spinnerTypeVisit"
+                              style="@style/Base.Widget.AppCompat.DropDownItem.Spinner"
+                              android:layout_width="match_parent"
+                              android:layout_height="wrap_content"
+                              android:layout_marginTop="20dp"
+                              android:entries="@array/lunch_type" />-->
 
                 </LinearLayout>
             </android.support.v7.widget.CardView>
-            <Button
-                android:id="@+id/btnSubmit"
-                style="@style/OrangeButton"
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginRight="10dp"
-                android:text="Submit" />
+                android:layout_weight="2"
+                android:orientation="horizontal">
 
 
+                <Button
+                    android:id="@+id/btnSave"
+                    style="@style/OrangeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:text="Save" />
+
+
+                <Button
+                    android:id="@+id/btnSubmit"
+                    style="@style/OrangeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Submit" />
+
+            </LinearLayout>
 
 
         </LinearLayout>
