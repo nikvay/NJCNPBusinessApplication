@@ -24,20 +24,17 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.nikvay.cnp_master.R;
-import com.nikvay.cnp_master.adapter.MutipleCustomerSelectionAdapter;
 import com.nikvay.cnp_master.adapter.MyCustomerAdapter;
 import com.nikvay.cnp_master.common.ServerConstants;
 import com.nikvay.cnp_master.common.VibrateOnClick;
 import com.nikvay.cnp_master.helper.DatabaseHelper;
 import com.nikvay.cnp_master.model.MyCustomerModel;
 import com.nikvay.cnp_master.model.VisitListAddModel;
-import com.nikvay.cnp_master.model.VisitListModel;
 import com.nikvay.cnp_master.utils.MyCustomerResponse;
 import com.nikvay.cnp_master.utils.SelectCustomerInterface;
 import com.nikvay.cnp_master.utils.StaticContent;

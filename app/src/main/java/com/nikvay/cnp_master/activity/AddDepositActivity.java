@@ -68,7 +68,7 @@ public class AddDepositActivity extends AppCompatActivity implements VolleyCompl
     Bitmap bitmap;
     Uri fileUri;
     Uri imageUrl;
-    String photo,TAG = getClass().getSimpleName();;
+    String photo,TAG = getClass().getSimpleName();
     private boolean isSelect = false;
 
 

@@ -23,9 +23,17 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.AddDepositActivity"></activity>
-        <activity android:name=".activity.NotificationDetailsActivity" />
-        <activity android:name=".activity.QuotationActivity" />
+        <activity android:name=".activity.CommonOustandingAndBudgetActivity"></activity>
+        <activity android:name=".activity.CommonActivityForSalesAndUpToSales" />
+        <activity
+            android:name=".activity.AddDepositActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NotificationDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.QuotationActivity"
+            android:screenOrientation="portrait" />
         <!--
   <service
             android:name=".firebaseServices.MyFirebaseInstanceIDService"

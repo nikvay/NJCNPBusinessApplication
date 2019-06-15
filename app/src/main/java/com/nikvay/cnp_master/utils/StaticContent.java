@@ -53,6 +53,8 @@ public class StaticContent {
         public static final String ACTIVITY_TYPE = "activity-type";
         public static final String VIEW_COLLECTION = "view-collection";
         public static final String VIEW_VISITS = "view-visits";
+
+
     }
 
     public class QuotationStatusCode {
@@ -71,6 +73,7 @@ public class StaticContent {
 
     public class IntentType {
         public static final String QUOTATION_COUNT = "quotation-count";
+        public static final String CUSTOMER_ID = "Customer-id";
         public static final String QUOTATION_NUMBER = "quotation-number";
         public static final String COLLECTION_NUMBER = "Collection-number";
         public static final String SALES_PERSON_ID = "Sales-person-id";
@@ -89,6 +92,8 @@ public class StaticContent {
 
     public class IntentValue {
         public static final String ACTIVITY_EDIT_CUSTOMER = "Edit Customer";
+        public static final String VIEW_UPTO_SALES = "UPTO_SALES";
+        public static final String VIEW_SALES = "SALES";
 
     }
 

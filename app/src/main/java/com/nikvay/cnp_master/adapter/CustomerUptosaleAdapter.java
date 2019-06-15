@@ -10,14 +10,15 @@ import android.widget.TextView;
 
 import com.nikvay.cnp_master.R;
 import com.nikvay.cnp_master.model.CustomerUpToSaleModel;
+import com.nikvay.cnp_master.model.UptoSalesMonthAndSales;
 
 import java.util.ArrayList;
 
 public class CustomerUptosaleAdapter extends RecyclerView.Adapter<CustomerUptosaleAdapter.MyViewHolder> {
 
     private  Context mContext;
-    private  ArrayList<CustomerUpToSaleModel> customerUpToSaleModelArrayList;
-    public CustomerUptosaleAdapter(Context mContext, ArrayList<CustomerUpToSaleModel> customerUpToSaleModelArrayList) {
+    private  ArrayList<UptoSalesMonthAndSales> customerUpToSaleModelArrayList;
+    public CustomerUptosaleAdapter(Context mContext, ArrayList<UptoSalesMonthAndSales> customerUpToSaleModelArrayList) {
         this.mContext=mContext;
         this.customerUpToSaleModelArrayList=customerUpToSaleModelArrayList;
     }
@@ -31,10 +32,10 @@ public class CustomerUptosaleAdapter extends RecyclerView.Adapter<CustomerUptosa
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        final CustomerUpToSaleModel customerUpToSaleModel=customerUpToSaleModelArrayList.get(position);
+        final UptoSalesMonthAndSales uptoSalesMonthAndSales=customerUpToSaleModelArrayList.get(position);
 
-        holder.textMonth.setText(customerUpToSaleModel.getMonth());
-        holder.textSales.setText(customerUpToSaleModel.getSales());
+        holder.textMonth.setText(uptoSalesMonthAndSales.getMonth());
+        holder.textSales.setText(uptoSalesMonthAndSales.getSales());
 
     }
 

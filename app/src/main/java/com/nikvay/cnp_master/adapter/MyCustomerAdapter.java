@@ -23,11 +23,14 @@ import android.widget.Toast;
 
 import com.nikvay.cnp_master.R;
 import com.nikvay.cnp_master.activity.AddCustomerActivity;
+import com.nikvay.cnp_master.activity.AddDepositActivity;
+import com.nikvay.cnp_master.activity.CommonActivityForSalesAndUpToSales;
 import com.nikvay.cnp_master.activity.RequestQuotationActivity;
 import com.nikvay.cnp_master.common.VibrateOnClick;
 import com.nikvay.cnp_master.model.CustomerSalesModule;
 import com.nikvay.cnp_master.model.CustomerUpToSaleModel;
 import com.nikvay.cnp_master.model.MyCustomerModel;
+import com.nikvay.cnp_master.utils.CustomerFieldListInterface;
 import com.nikvay.cnp_master.utils.SelectCustomerInterface;
 import com.nikvay.cnp_master.utils.StaticContent;
 
@@ -44,6 +47,7 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private boolean isFirstLoad;
     private MyCustomerModel shareModel;
     private SelectCustomerInterface selectCustomerInterface;
+    private CustomerFieldListInterface customerFieldListInterface;
     private boolean isNameSelect = false;
 
     public MyCustomerAdapter(Context mContext, ArrayList<MyCustomerModel> arrayList, boolean isDialog) {
@@ -93,8 +97,8 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         hold.textEmailIDMCA.setText(arrayList.get(position).getEmail_id());
         hold.textRegistrationDateMCA.setText(arrayList.get(position).getDate_of_registration());
         hold.textAddressMCA.setText(arrayList.get(position).getBilling_address());
-        hold.textOutstandingMCA.setText(arrayList.get(position).getOutstanding_amount());
-        hold.textBudget.setText(arrayList.get(position).getBudget());
+       // hold.textOutstandingMCA.setText(arrayList.get(position).getOutstanding_amount());
+       // hold.textBudget.setText(arrayList.get(position).getBudget());
         //hold.textSale.setText(arrayList.get(position).getSale());
         hold.ivEditMCA.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,11 +111,26 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 mContext.startActivity(intent);
             }
         });
+
+        hold.iv_outstanding.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        hold.ll_budget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         hold.textSale.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                VibrateOnClick.vibrate();
+               /* VibrateOnClick.vibrate();
                 final Dialog selectSales = new Dialog(mContext);
                 selectSales.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 selectSales.setContentView(R.layout.dialog_customer_sales);
@@ -183,8 +202,15 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     public void onClick(View view) {
                         selectSales.dismiss();
                     }
-                });
+                });*/
 
+
+
+                Intent intent=new Intent(mContext, CommonActivityForSalesAndUpToSales.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(StaticContent.IntentType.CUSTOMER_ID,arrayList.get(position).getC_id());
+                intent.putExtra(StaticContent.ActivityType.ACTIVITY_TYPE,StaticContent.IntentValue.VIEW_SALES);
+                mContext.startActivity(intent);
 
             }
         });
@@ -193,26 +219,13 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             @Override
             public void onClick(View v) {
                 VibrateOnClick.vibrate();
-                final Dialog selectUptoSales = new Dialog(mContext);
-                selectUptoSales.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                selectUptoSales.setContentView(R.layout.dialog_customer_upto_sales);
-                selectUptoSales.setCancelable(false);
 
 
-                final CustomerUptosaleAdapter customerUptosaleAdapter;
-                ArrayList<CustomerUpToSaleModel> customerUpToSaleModelArrayList = new ArrayList<>();
 
-                TextView textCustomerNameUptoSaleDialog = selectUptoSales.findViewById(R.id.textCustomerNameUptoSaleDialog);
-                TextView textCompanyNameUptoSaleDialog = selectUptoSales.findViewById(R.id.textCompanyNameUptoSaleDialog);
-                //TextView textTotalSale = selectUptoSales.findViewById(R.id.textTotalSale);
-                RecyclerView recyclerView = selectUptoSales.findViewById(R.id.recycler_view_uptoSales);
-                ImageView iv_list_not_found_ = selectUptoSales.findViewById(R.id.iv_list_not_found_);
-                ImageView textClose = selectUptoSales.findViewById(R.id.textClose);
-                textCustomerNameUptoSaleDialog.setText(arrayList.get(position).getBilling_contact_person());
+
+               /* textCustomerNameUptoSaleDialog.setText(arrayList.get(position).getBilling_contact_person());
                 textCompanyNameUptoSaleDialog.setText(arrayList.get(position).getCompany_name());
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
-                recyclerView.setLayoutManager(linearLayoutManager);
-                recyclerView.setHasFixedSize(true);
+
 
                 String month1 = String.valueOf(arrayList.get(position).getMonth1() == null ? "" : arrayList.get(position).getMonth1());
                 String month1_count = String.valueOf(arrayList.get(position).getMonth1_count() == null ? "" : arrayList.get(position).getMonth1_count());
@@ -323,12 +336,21 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         selectUptoSales.dismiss();
                     }
                 });
+*/
 
+                Intent intent=new Intent(mContext, CommonActivityForSalesAndUpToSales.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(StaticContent.IntentType.CUSTOMER_ID,arrayList.get(position).getC_id());
+                intent.putExtra(StaticContent.ActivityType.ACTIVITY_TYPE,StaticContent.IntentValue.VIEW_UPTO_SALES);
+                mContext.startActivity(intent);
             }
         });
         if (isDialog) {
             hold.ll_sales.setVisibility(View.GONE);
             hold.ll_UptoSales.setVisibility(View.GONE);
+            hold.ll_outstanding.setVisibility(View.GONE);
+            hold.ll_outstanding.setVisibility(View.GONE);
+            hold.ll_budget.setVisibility(View.GONE);
             hold.cardMyCustomerAdapter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -395,8 +417,8 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 textBudget,
                 textEditMCA;
         private CardView cardMyCustomerAdapter;
-        private LinearLayout ll_sales,ll_UptoSales;
-        private ImageView textSale, ivEditMCA, textUptoSale;
+        private LinearLayout ll_sales,ll_UptoSales,ll_outstanding,ll_budget;
+        private ImageView textSale, ivEditMCA, textUptoSale,iv_outstanding,iv_Budget;
 
         public Data(View itemView) {
             super(itemView);
@@ -408,15 +430,17 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             textEmailIDMCA = itemView.findViewById(R.id.textEmailIDMCA);
             textRegistrationDateMCA = itemView.findViewById(R.id.textRegistrationDateMCA);
             textAddressMCA = itemView.findViewById(R.id.textAddressMCA);
-            textOutstandingMCA = itemView.findViewById(R.id.textOutstandingMCA);
             ivEditMCA = itemView.findViewById(R.id.ivEditMCA);
             cardMyCustomerAdapter = itemView.findViewById(R.id.cardMyCustomerAdapter);
-            textBudget = itemView.findViewById(R.id.textBudget);
+            iv_outstanding = itemView.findViewById(R.id.iv_outstanding);
+            iv_Budget = itemView.findViewById(R.id.iv_Budget);
             textSale = itemView.findViewById(R.id.textSale);
             ll_sales = itemView.findViewById(R.id.ll_sales);
             ll_sales = itemView.findViewById(R.id.ll_sales);
             textUptoSale = itemView.findViewById(R.id.textUptoSale);
             ll_UptoSales = itemView.findViewById(R.id.ll_UptoSales);
+            ll_outstanding = itemView.findViewById(R.id.ll_outstanding);
+            ll_budget = itemView.findViewById(R.id.ll_budget);
 
         }
     }

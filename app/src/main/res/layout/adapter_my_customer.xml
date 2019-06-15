@@ -205,6 +205,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:id="@+id/ll_outstanding"
             android:orientation="horizontal"
             android:weightSum="10">
 
@@ -216,16 +217,14 @@
                 android:text="Outstanding Amount:"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textOutstandingMCA"
-                style="@style/Text"
+            <ImageView
+                android:id="@+id/iv_outstanding"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="4"
+                android:src="@drawable/click_here"
                 android:textColor="@android:color/holo_red_dark"
-                android:textStyle="bold"
                 tools:ignore="NewApi" />
-
         </LinearLayout>
 
 
@@ -233,6 +232,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:id="@+id/ll_budget"
             android:orientation="horizontal"
             android:weightSum="10">
 
@@ -244,14 +244,13 @@
                 android:text="Budget:"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textBudget"
-                style="@style/Text"
+            <ImageView
+                android:id="@+id/iv_Budget"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="4"
+                android:src="@drawable/click_here"
                 android:textColor="@android:color/holo_red_dark"
-                android:textStyle="bold"
                 tools:ignore="NewApi" />
 
         </LinearLayout>

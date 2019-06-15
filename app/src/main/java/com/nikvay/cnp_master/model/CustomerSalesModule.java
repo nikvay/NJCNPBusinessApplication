@@ -5,6 +5,11 @@ public class CustomerSalesModule {
     String year1;
     String sale_count1;
 
+    public CustomerSalesModule(String year1, String sales_count1) {
+        this.year1=year1;
+        this.sale_count1=sales_count1;
+    }
+
 
     public String getYear1() {
         return year1;

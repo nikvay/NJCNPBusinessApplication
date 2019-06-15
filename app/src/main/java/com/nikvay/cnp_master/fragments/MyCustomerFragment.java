@@ -230,12 +230,6 @@ public class  MyCustomerFragment extends Fragment implements VolleyCompleteListe
                                     String year3 = uptoSalesData.getString("year3");
                                     String sale_count3 = uptoSalesData.getString("sale_count3");
 
-                                    model.setYear1(year1);
-                                    model.setYear2(year2);
-                                    model.setYear3(year3);
-                                    model.setSale_count1(sale_count1);
-                                    model.setSale_count2(sale_count2);
-                                    model.setSale_count3(sale_count3);
                                 }
 
                                 JSONArray saleArray = jdata.getJSONArray("up_to_sale");
@@ -267,33 +261,6 @@ public class  MyCustomerFragment extends Fragment implements VolleyCompleteListe
                                     String month11_count=salesdata.getString("month11_count");
                                     String month12=salesdata.getString("month12");
                                     String month12_count=salesdata.getString("month12_count");
-
-                                    model.setMonth1(month1);
-                                    model.setMonth2(month2);
-                                    model.setMonth3(month3);
-                                    model.setMonth4(month4);
-                                    model.setMonth5(month5);
-                                    model.setMonth6(month6);
-                                    model.setMonth7(month7);
-                                    model.setMonth8(month8);
-                                    model.setMonth9(month9);
-                                    model.setMonth10(month10);
-                                    model.setMonth11(month11);
-                                    model.setMonth12(month12);
-
-                                    model.setMonth1_count(month1_count);
-                                    model.setMonth2_count(month2_count);
-                                    model.setMonth3_count(month3_count);
-                                    model.setMonth4_count(month4_count);
-                                    model.setMonth5_count(month5_count);
-                                    model.setMonth6_count(month6_count);
-                                    model.setMonth7_count(month7_count);
-                                    model.setMonth8_count(month8_count);
-                                    model.setMonth9_count(month9_count);
-                                    model.setMonth10_count(month10_count);
-                                    model.setMonth11_count(month11_count);
-                                    model.setMonth12_count(month12_count);
-
 
                                 }
 
