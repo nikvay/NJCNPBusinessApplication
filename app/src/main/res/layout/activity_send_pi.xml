@@ -342,8 +342,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_edit_customer"
-                    android:layout_marginTop="10dp"
                     android:visibility="gone"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical">
 
 
@@ -413,7 +413,64 @@
                             android:layout_height="match_parent"
                             android:backgroundTint="@color/colorPrimary"
                             android:gravity="center|left"
-                            android:hint="Delivery Address"
+                            android:hint="Delivery Address 1"
+                            android:inputType="text"
+                            android:textColor="@color/colorPrimary" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textDelivery1_AddressTI"
+                        android:visibility="gone"
+                        android:layout_marginTop="5dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/textDelivery1_Address"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:gravity="center|left"
+                            android:hint="Delivery Address 2"
+                            android:inputType="text"
+                            android:textColor="@color/colorPrimary" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textDelivery2_AddressTI"
+                        android:visibility="gone"
+                        android:layout_marginTop="5dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/textDelivery2_Address"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:gravity="center|left"
+                            android:hint="Delivery Address 3"
+                            android:inputType="text"
+                            android:textColor="@color/colorPrimary" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textDelivery3_AddressTI"
+                        android:visibility="gone"
+                        android:layout_marginTop="5dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/textDelivery3_Address"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:gravity="center|left"
+                            android:hint="Delivery Address 4"
                             android:inputType="text"
                             android:textColor="@color/colorPrimary" />
                     </android.support.design.widget.TextInputLayout>

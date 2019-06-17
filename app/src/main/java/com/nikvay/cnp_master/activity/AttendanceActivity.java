@@ -63,7 +63,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class AttendanceActivity extends AppCompatActivity implements VolleyCompleteListener, SuccessDialogClosed, LocationListener {
+public class AttendanceActivity extends AppCompatActivity implements VolleyCompleteListener, SuccessDialogClosed{
 
 
     private static final String TAG = AttendanceActivity.class.getSimpleName();
@@ -78,10 +78,32 @@ public class AttendanceActivity extends AppCompatActivity implements VolleyCompl
     TextView text_name, text_mobile_number, text_email_id;
     String attendance, attendanceType;
     String user_id, name, mobile_number, email_id;
-    String address;
-    LocationManager locationManager;
+  /*  LocationManager locationManager;
     private GoogleApiClient googleApiClient;
-    protected static final int REQUEST_CHECK_SETTINGS = 0x1;
+    protected static final int REQUEST_CHECK_SETTINGS = 0x1;*/
+
+
+    private FusedLocationProviderClient mFusedLocationClient;
+    private SettingsClient mSettingsClient;
+    private LocationRequest mLocationRequest;
+    private LocationSettingsRequest mLocationSettingsRequest;
+    private LocationCallback mLocationCallback;
+    private Location mCurrentLocation;
+    private String mLastUpdateTime;
+    private Boolean mRequestingLocationUpdates;
+    public static double shareLatitude = 0, shareLongitude = 0;
+    private static final int REQUEST_CHECK_SETTINGS = 100;
+    private static final long UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
+
+    // fastest updates interval - 5 sec
+    // location updates will be received if another app is requesting the locations
+    // than your app can handle
+    private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 1000;
+    private MapUtility mapUtility;
+
+
+    private GoogleApiClient googleApiClient;
+
 
 
     @Override
@@ -91,13 +113,22 @@ public class AttendanceActivity extends AppCompatActivity implements VolleyCompl
 
         initialize();
 
-        googleApiClient = getAPIClientInstance();
+       /* googleApiClient = getAPIClientInstance();
         if (googleApiClient != null) {
             googleApiClient.connect();
         }
 
         getLocation();
-        requestGPSSettings();
+        requestGPSSettings();*/
+
+        mapUtility = new MapUtility(AttendanceActivity.this);
+        init();
+        if (mapUtility.getGPSstatus()) {
+            mRequestingLocationUpdates = true;
+            startLocationUpdates();
+        } else {
+            mapUtility.displayLocationSettingsRequest(getApplicationContext());
+        }
 
     }
 
@@ -158,7 +189,7 @@ public class AttendanceActivity extends AppCompatActivity implements VolleyCompl
     private void callAttendanceWS(String user_id, String attendanceType) {
 
 //        Log.d(TAG, address);
-
+        String address = mapUtility.getCompleteAddressString(LoginActivity.shareLatitude, LoginActivity.shareLongitude);
         if (address != null && !address.equals("")) {
             HashMap<String, String> map = new HashMap<>();
             map.put(ServerConstants.URL, ServerConstants.serverUrl.MARK_ATTENDANCE);
@@ -168,16 +199,11 @@ public class AttendanceActivity extends AppCompatActivity implements VolleyCompl
             map.put("attendence_type", attendanceType);
             new MyVolleyPostMethod(this, map, ServerConstants.ServiceCode.MARK_ATTENDANCE, true);
         } else {
-            getLocation();
+            //getLocation();
             Toast.makeText(getApplicationContext(), "Please wait for 10 sec...", Toast.LENGTH_SHORT).show();
         }
     }
 
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 
     @Override
     public void onTaskCompleted(String response, int serviceCode) {
@@ -215,7 +241,7 @@ public class AttendanceActivity extends AppCompatActivity implements VolleyCompl
     }
 
 
-    void getLocation() {
+    /*void getLocation() {
         try {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
@@ -301,6 +327,140 @@ public class AttendanceActivity extends AppCompatActivity implements VolleyCompl
                 }
             }
         });
+    }
+
+*/
+
+    private void init() {
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        mSettingsClient = LocationServices.getSettingsClient(this);
+
+        mLocationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                super.onLocationResult(locationResult);
+                // location is received
+                mCurrentLocation = locationResult.getLastLocation();
+                mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+
+                updateLocationUI();
+            }
+        };
+
+        mRequestingLocationUpdates = false;
+
+        mLocationRequest = new LocationRequest();
+        mLocationRequest.setInterval(UPDATE_INTERVAL_IN_MILLISECONDS);
+        mLocationRequest.setFastestInterval(FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(mLocationRequest);
+        mLocationSettingsRequest = builder.build();
+    }
+
+    private void updateLocationUI() {
+        if (mCurrentLocation != null) {
+            shareLatitude = mCurrentLocation.getLatitude();
+            shareLongitude = mCurrentLocation.getLongitude();
+
+        }
+
+    }
+
+    private void startLocationUpdates() {
+        mSettingsClient
+                .checkLocationSettings(mLocationSettingsRequest)
+                .addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
+                    @SuppressLint("MissingPermission")
+                    @Override
+                    public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
+                        Log.i(TAG, "All location settings are satisfied.");
+
+
+                        //noinspection MissingPermission
+                        mFusedLocationClient.requestLocationUpdates(mLocationRequest,
+                                mLocationCallback, Looper.myLooper());
+
+                        updateLocationUI();
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        int statusCode = ((ApiException) e).getStatusCode();
+                        switch (statusCode) {
+                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                Log.i(TAG, "Location settings are not satisfied. Attempting to upgrade " +
+                                        "location settings ");
+                                try {
+                                    // Show the dialog by calling startResolutionForResult(), and check the
+                                    // result in onActivityResult().
+                                    ResolvableApiException rae = (ResolvableApiException) e;
+                                    rae.startResolutionForResult(AttendanceActivity.this, REQUEST_CHECK_SETTINGS);
+                                } catch (IntentSender.SendIntentException sie) {
+                                    Log.i(TAG, "PendingIntent unable to execute request.");
+                                }
+                                break;
+                            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                                String errorMessage = "Location settings are inadequate, and cannot be " +
+                                        "fixed here. Fix in Settings.";
+                                Log.e(TAG, errorMessage);
+
+                        }
+
+                        updateLocationUI();
+                    }
+                });
+    }
+
+    public void stopLocationUpdates() {
+        // Removing location updates
+        mFusedLocationClient
+                .removeLocationUpdates(mLocationCallback)
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Resuming location updates depending on button state and
+        // allowed permissions
+        if (mRequestingLocationUpdates && checkPermissions()) {
+            mRequestingLocationUpdates = true;
+            startLocationUpdates();
+        }
+
+        updateLocationUI();
+    }
+
+    private boolean checkPermissions() {
+        int permissionState = (int) ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        return permissionState == PackageManager.PERMISSION_GRANTED;
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (mRequestingLocationUpdates) {
+            // pausing location updates
+            stopLocationUpdates();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        System.exit(0);
     }
 
 

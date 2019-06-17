@@ -8,8 +8,10 @@ import java.util.ArrayList;
 public class SuccessModel {
     private  String error_code;
     private  String msg;
-    String company_name;
-    String customer_name;
+    private String company_name;
+    private String customer_name;
+    private String outstanding_amount;
+    private String   budget;
 
     @SerializedName("up_to_sale")
     ArrayList<CustomerUpToSaleModel> customerUpToSaleModelArrayList;
@@ -62,6 +64,22 @@ public class SuccessModel {
 
     public void setCustomerSalesModelArrayList(ArrayList<CustomerSalesModel> customerSalesModelArrayList) {
         this.customerSalesModelArrayList = customerSalesModelArrayList;
+    }
+
+    public String getOutstanding_amount() {
+        return outstanding_amount;
+    }
+
+    public void setOutstanding_amount(String outstanding_amount) {
+        this.outstanding_amount = outstanding_amount;
+    }
+
+    public String getBudget() {
+        return budget;
+    }
+
+    public void setBudget(String budget) {
+        this.budget = budget;
     }
 
     public void setCustomer_name(String customer_name) {

@@ -35,8 +35,8 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
 
 
     private RadioButton radioYCA, radioNCA, radioDispatchEmail, radioCM, radioTCY, radioTCN, radioInspectionY, radioInspectionN;
-    private AutoCompleteTextView textTransporter, textPaymentDetails, textEmail, textSpecs, textOther, textReference, textCell_No, textBilling_GST_No, textDelivery_Address, textTerm_Of_Payment;
-    private TextInputLayout textReferenceTI, textCell_NoTI, textBilling_GST_NoTI, textDelivery_AddressTI, textTerm_Of_PaymentTI;
+    private AutoCompleteTextView textTransporter, textPaymentDetails, textEmail, textSpecs, textOther, textReference, textCell_No, textBilling_GST_No, textDelivery_Address, textTerm_Of_Payment,textDelivery1_Address,textDelivery2_Address,textDelivery3_Address;
+    private TextInputLayout textReferenceTI, textCell_NoTI, textBilling_GST_NoTI, textDelivery_AddressTI, textTerm_Of_PaymentTI,textDelivery1_AddressTI,textDelivery2_AddressTI,textDelivery3_AddressTI;
     private RadioGroup radioGroupDispatchEmail, radioGroupCMY;
 
     String profileComplete = "Yes";
@@ -98,6 +98,14 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
         textBilling_GST_NoTI = findViewById(R.id.textBilling_GST_NoTI);
         textDelivery_AddressTI = findViewById(R.id.textDelivery_AddressTI);
         textTerm_Of_PaymentTI = findViewById(R.id.textTerm_Of_PaymentTI);
+
+        textDelivery1_AddressTI = findViewById(R.id.textDelivery1_AddressTI);
+        textDelivery2_AddressTI = findViewById(R.id.textDelivery2_AddressTI);
+        textDelivery3_AddressTI = findViewById(R.id.textDelivery3_AddressTI);
+
+        textDelivery1_Address = findViewById(R.id.textDelivery1_Address);
+        textDelivery2_Address = findViewById(R.id.textDelivery2_Address);
+        textDelivery3_Address = findViewById(R.id.textDelivery3_Address);
 
 
         textTransporter = findViewById(R.id.textTransporter);
@@ -242,7 +250,6 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
 
     private void callCustomerUpdate() {
         if (reference.equalsIgnoreCase("")) {
-
             getReference = mReference;
         }
 
@@ -303,6 +310,27 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
 
             if (delivery_address.equalsIgnoreCase("0") || delivery_address.equalsIgnoreCase("null") || delivery_address.equalsIgnoreCase("NA") || delivery_address.equalsIgnoreCase("")) {
                 blankFieldCount++;
+                textDelivery1_AddressTI.setVisibility(View.VISIBLE);
+                textDelivery2_AddressTI.setVisibility(View.VISIBLE);
+                textDelivery3_AddressTI.setVisibility(View.VISIBLE);
+
+                String textDelivery1=textDelivery1_Address.getText().toString().trim();
+                String textDelivery2=textDelivery2_Address.getText().toString().trim();
+                String textDelivery3=textDelivery3_Address.getText().toString().trim();
+
+                if (textDelivery1.equalsIgnoreCase("")) {
+                    textDelivery1_Address.setError("Enter Delivery Address");
+                    textDelivery1_Address.requestFocus();
+                }
+                if (textDelivery2.equalsIgnoreCase("")) {
+                    textDelivery2_Address.setError("Enter Delivery Address");
+                    textDelivery2_Address.requestFocus();
+                }
+                if (textDelivery3.equalsIgnoreCase("")) {
+                    textDelivery3_Address.setError("Enter Delivery Address");
+                    textDelivery3_Address.requestFocus();
+                }
+
             } else {
                 textDelivery_AddressTI.setVisibility(View.GONE);
                 textDelivery_Address.setText(delivery_address);
@@ -342,6 +370,9 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
         map.put("cell_no", getCellNo);
         map.put("billing_GST_no", getBilling_Gst);
         map.put("delivery_address", getDelivery_Address);
+        map.put("delivery_address2", textDelivery1_Address.getText().toString().trim());
+        map.put("delivery_address3", textDelivery2_Address.getText().toString().trim());
+        map.put("delivery_address4", textDelivery3_Address.getText().toString().trim());
         map.put("term_of_payment", getTermOfPay);
         map.put("is_tc_warranty_letter", radioTCY.isSelected() ? "yes" : "no");
         map.put("space_related", getSpecs);

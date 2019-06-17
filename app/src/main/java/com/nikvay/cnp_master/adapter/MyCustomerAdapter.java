@@ -25,6 +25,7 @@ import com.nikvay.cnp_master.R;
 import com.nikvay.cnp_master.activity.AddCustomerActivity;
 import com.nikvay.cnp_master.activity.AddDepositActivity;
 import com.nikvay.cnp_master.activity.CommonActivityForSalesAndUpToSales;
+import com.nikvay.cnp_master.activity.CommonOustandingAndBudgetActivity;
 import com.nikvay.cnp_master.activity.RequestQuotationActivity;
 import com.nikvay.cnp_master.common.VibrateOnClick;
 import com.nikvay.cnp_master.model.CustomerSalesModule;
@@ -116,12 +117,22 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             @Override
             public void onClick(View v) {
 
+                Intent intent=new Intent(mContext, CommonOustandingAndBudgetActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(StaticContent.IntentType.CUSTOMER_ID,arrayList.get(position).getC_id());
+                intent.putExtra(StaticContent.ActivityType.ACTIVITY_TYPE,StaticContent.IntentValue.VIEW_UPTO_SALES);
+                mContext.startActivity(intent);
             }
         });
 
         hold.ll_budget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent=new Intent(mContext, CommonOustandingAndBudgetActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(StaticContent.IntentType.CUSTOMER_ID,arrayList.get(position).getC_id());
+                intent.putExtra(StaticContent.ActivityType.ACTIVITY_TYPE,StaticContent.IntentValue.VIEW_UPTO_SALES);
+                mContext.startActivity(intent);
 
             }
         });
@@ -130,81 +141,6 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             @Override
             public void onClick(View view) {
-               /* VibrateOnClick.vibrate();
-                final Dialog selectSales = new Dialog(mContext);
-                selectSales.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                selectSales.setContentView(R.layout.dialog_customer_sales);
-                selectSales.setCancelable(false);
-
-
-                TextView textCustomerNameMCADialog = selectSales.findViewById(R.id.textCustomerNameMCADialog);
-                TextView textCompanyNameMCA = selectSales.findViewById(R.id.textCompanyNameMCADialog);
-
-                TextView textSalesYear1 = selectSales.findViewById(R.id.textSalesYear1);
-                TextView textSalesCount1 = selectSales.findViewById(R.id.textSalesCount1);
-                TextView textSalesYear2 = selectSales.findViewById(R.id.textSalesYear2);
-                TextView textSalesCount2 = selectSales.findViewById(R.id.textSalesCount2);
-                TextView textSalesYear3 = selectSales.findViewById(R.id.textSalesYear3);
-                TextView textSalesCount3 = selectSales.findViewById(R.id.textSalesCount3);
-                ImageView textShowMessage = selectSales.findViewById(R.id.textShowMessage);
-
-
-                ImageView textClose = selectSales.findViewById(R.id.textClose);
-
-
-                String year1 = String.valueOf(arrayList.get(position).getYear1() == null ? "" : arrayList.get(position).getYear1());
-                String year2 = String.valueOf(arrayList.get(position).getYear2() == null ? "" : arrayList.get(position).getYear2());
-                String year3 = String.valueOf(arrayList.get(position).getYear3() == null ? "" : arrayList.get(position).getYear3());
-                String sale_count1 = String.valueOf(arrayList.get(position).getSale_count1() == null ? "" : arrayList.get(position).getSale_count1());
-                String sale_count2 = String.valueOf(arrayList.get(position).getSale_count2() == null ? "" : arrayList.get(position).getSale_count2());
-                String sale_count3 = String.valueOf(arrayList.get(position).getSale_count3() == null ? "" : arrayList.get(position).getSale_count3());
-
-
-                String hideYear1 = "NO", hideYear2 = "NO", hideYear3 = "NO";
-
-                textCustomerNameMCADialog.setText(arrayList.get(position).getBilling_contact_person());
-                textCompanyNameMCA.setText(arrayList.get(position).getCompany_name());
-
-
-                if ((!year1.equalsIgnoreCase("")) || (!sale_count1.equalsIgnoreCase(""))) {
-                    textSalesCount1.setText(sale_count1);
-                    textSalesYear1.setText(year1);
-                } else {
-                    hideYear1 = "YES";
-                    textSalesCount1.setVisibility(View.GONE);
-                    textSalesYear1.setVisibility(View.GONE);
-                }
-                if ((!year2.equalsIgnoreCase("")) || (!sale_count2.equalsIgnoreCase(""))) {
-                    textSalesCount2.setText(sale_count2);
-                    textSalesYear2.setText(year2);
-                } else {
-                    hideYear2 = "YES";
-                    textSalesCount2.setVisibility(View.GONE);
-                    textSalesYear2.setVisibility(View.GONE);
-                }
-                if ((!year3.equalsIgnoreCase("")) || (!sale_count3.equalsIgnoreCase(""))) {
-                    textSalesCount3.setText(sale_count3);
-                    textSalesYear3.setText(year3);
-                } else {
-                    hideYear3 = "YES";
-                    textSalesCount3.setVisibility(View.GONE);
-                    textSalesYear3.setVisibility(View.GONE);
-                }
-                if (hideYear1.equalsIgnoreCase("YES") && hideYear2.equalsIgnoreCase("YES") && hideYear3.equalsIgnoreCase("YES")) {
-                    textShowMessage.setVisibility(View.VISIBLE);
-                }
-
-                selectSales.show();
-
-
-                textClose.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        selectSales.dismiss();
-                    }
-                });*/
-
-
 
                 Intent intent=new Intent(mContext, CommonActivityForSalesAndUpToSales.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -218,126 +154,6 @@ public class MyCustomerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         hold.textUptoSale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VibrateOnClick.vibrate();
-
-
-
-
-               /* textCustomerNameUptoSaleDialog.setText(arrayList.get(position).getBilling_contact_person());
-                textCompanyNameUptoSaleDialog.setText(arrayList.get(position).getCompany_name());
-
-
-                String month1 = String.valueOf(arrayList.get(position).getMonth1() == null ? "" : arrayList.get(position).getMonth1());
-                String month1_count = String.valueOf(arrayList.get(position).getMonth1_count() == null ? "" : arrayList.get(position).getMonth1_count());
-
-                String month2 = String.valueOf(arrayList.get(position).getMonth2() == null ? "" : arrayList.get(position).getMonth2());
-                String month2_count = String.valueOf(arrayList.get(position).getMonth2_count() == null ? "" : arrayList.get(position).getMonth2_count());
-
-                String month3 = String.valueOf(arrayList.get(position).getMonth3() == null ? "" : arrayList.get(position).getMonth3());
-                String month3_count = String.valueOf(arrayList.get(position).getMonth3_count() == null ? "" : arrayList.get(position).getMonth3_count());
-
-                String month4 = String.valueOf(arrayList.get(position).getMonth4() == null ? "" : arrayList.get(position).getMonth4());
-                String month4_count = String.valueOf(arrayList.get(position).getMonth4_count() == null ? "" : arrayList.get(position).getMonth4_count());
-
-                String month5 = String.valueOf(arrayList.get(position).getMonth5() == null ? "" : arrayList.get(position).getMonth5());
-                String month5_count = String.valueOf(arrayList.get(position).getMonth5_count() == null ? "" : arrayList.get(position).getMonth5_count());
-
-                String month6 = String.valueOf(arrayList.get(position).getMonth6() == null ? "" : arrayList.get(position).getMonth6());
-                String month6_count = String.valueOf(arrayList.get(position).getMonth6_count() == null ? "" : arrayList.get(position).getMonth6_count());
-
-                String month7 = String.valueOf(arrayList.get(position).getMonth7() == null ? "" : arrayList.get(position).getMonth7());
-                String month7_count = String.valueOf(arrayList.get(position).getMonth7_count() == null ? "" : arrayList.get(position).getMonth7_count());
-
-                String month8 = String.valueOf(arrayList.get(position).getMonth7() == null ? "" : arrayList.get(position).getMonth7());
-                String month8_count = String.valueOf(arrayList.get(position).getMonth8_count() == null ? "" : arrayList.get(position).getMonth8_count());
-
-                String month9 = String.valueOf(arrayList.get(position).getMonth9() == null ? "" : arrayList.get(position).getMonth9());
-                String month9_count = String.valueOf(arrayList.get(position).getMonth9_count() == null ? "" : arrayList.get(position).getMonth9_count());
-
-                String month10 = String.valueOf(arrayList.get(position).getMonth10() == null ? "" : arrayList.get(position).getMonth10());
-                String month10_count = String.valueOf(arrayList.get(position).getMonth10_count() == null ? "" : arrayList.get(position).getMonth10_count());
-
-                String month11 = String.valueOf(arrayList.get(position).getMonth11() == null ? "" : arrayList.get(position).getMonth11());
-                String month11_count = String.valueOf(arrayList.get(position).getMonth11_count() == null ? "" : arrayList.get(position).getMonth11_count());
-
-                String month12 = String.valueOf(arrayList.get(position).getMonth12() == null ? "" : arrayList.get(position).getMonth12());
-                String month12_count = String.valueOf(arrayList.get(position).getMonth12_count() == null ? "" : arrayList.get(position).getMonth12_count());
-
-                if (!month1.equalsIgnoreCase("")) {
-                    CustomerUpToSaleModel customerUpToSaleModel1 = new CustomerUpToSaleModel(month1, month1_count);
-                    customerUpToSaleModelArrayList.add(customerUpToSaleModel1);
-                }
-                if (!month2.equalsIgnoreCase("")) {
-                    CustomerUpToSaleModel customerUpToSaleModel2 = new CustomerUpToSaleModel(month2, month2_count);
-                    customerUpToSaleModelArrayList.add(customerUpToSaleModel2);
-                }
-                if (!month3.equalsIgnoreCase("")) {
-                    CustomerUpToSaleModel customerUpToSaleModel3 = new CustomerUpToSaleModel(month3, month3_count);
-                    customerUpToSaleModelArrayList.add(customerUpToSaleModel3);
-
-                }
-                if (!month4.equalsIgnoreCase("")) {
-                    CustomerUpToSaleModel customerUpToSaleModel4 = new CustomerUpToSaleModel(month4, month4_count);
-                    customerUpToSaleModelArrayList.add(customerUpToSaleModel4);
-                }
-                if(!month5.equalsIgnoreCase("")) {
-                    CustomerUpToSaleModel customerUpToSaleModel5 = new CustomerUpToSaleModel(month5, month5_count);
-                    customerUpToSaleModelArrayList.add(customerUpToSaleModel5);
-                }
-                if(!month6.equalsIgnoreCase("")) {
-                    CustomerUpToSaleModel customerUpToSaleModel6 = new CustomerUpToSaleModel(month6, month6_count);
-                    customerUpToSaleModelArrayList.add(customerUpToSaleModel6);
-                }
-                if(!month7.equalsIgnoreCase("")) {
-
-                    CustomerUpToSaleModel customerUpToSaleModel7 = new CustomerUpToSaleModel(month7, month7_count);
-                    customerUpToSaleModelArrayList.add(customerUpToSaleModel7);
-                }
-                if(!month8.equalsIgnoreCase("")) {
-                    CustomerUpToSaleModel customerUpToSaleModel8 = new CustomerUpToSaleModel(month8, month8_count);
-                    customerUpToSaleModelArrayList.add(customerUpToSaleModel8);
-                }
-                if(!month9.equalsIgnoreCase("")) {
-                    CustomerUpToSaleModel customerUpToSaleModel9 = new CustomerUpToSaleModel(month9, month9_count);
-                    customerUpToSaleModelArrayList.add(customerUpToSaleModel9);
-                }
-                if(!month10.equalsIgnoreCase("")) {
-                    CustomerUpToSaleModel customerUpToSaleModel10 = new CustomerUpToSaleModel(month10, month10_count);
-                    customerUpToSaleModelArrayList.add(customerUpToSaleModel10);
-                }
-                if(!month11.equalsIgnoreCase("")) {
-                    CustomerUpToSaleModel customerUpToSaleModel11 = new CustomerUpToSaleModel(month11, month11_count);
-                    customerUpToSaleModelArrayList.add(customerUpToSaleModel11);
-                }
-                if(!month12.equalsIgnoreCase("")) {
-                    CustomerUpToSaleModel customerUpToSaleModel12 = new CustomerUpToSaleModel(month12, month12_count);
-                    customerUpToSaleModelArrayList.add(customerUpToSaleModel12);
-                }
-
-
-                if(customerUpToSaleModelArrayList.size()==0)
-                {
-                    iv_list_not_found_.setVisibility(View.VISIBLE);
-                    recyclerView.setVisibility(View.GONE);
-                }
-
-
-              //  textTotalSale.setText("10");
-
-                customerUptosaleAdapter = new CustomerUptosaleAdapter(mContext, customerUpToSaleModelArrayList);
-                recyclerView.setAdapter(customerUptosaleAdapter);
-                customerUptosaleAdapter.notifyDataSetChanged();
-                selectUptoSales.show();
-
-
-                textClose.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        selectUptoSales.dismiss();
-                    }
-                });
-*/
-
                 Intent intent=new Intent(mContext, CommonActivityForSalesAndUpToSales.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(StaticContent.IntentType.CUSTOMER_ID,arrayList.get(position).getC_id());

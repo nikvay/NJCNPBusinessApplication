@@ -34,4 +34,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     Call<SuccessModel> viewUptoSales(@Field("sale_person_id") String sale_person_id,
                                      @Field("cust_id") String cust_id);
+
+
+    @POST(EndApi.VIEW_OUTSTANDING_BUDGET)
+    @FormUrlEncoded
+    Call<SuccessModel> viewOustandingAndBudget(@Field("sale_person_id") String sale_person_id,
+                                               @Field("cust_id") String cust_id);
 }

@@ -22,6 +22,7 @@ import com.nikvay.cnp_master.model.CustomerSalesModule;
 import com.nikvay.cnp_master.model.CustomerUpToSaleModel;
 import com.nikvay.cnp_master.model.SuccessModel;
 import com.nikvay.cnp_master.model.UptoSalesMonthAndSales;
+import com.nikvay.cnp_master.utils.NetworkUtils;
 import com.nikvay.cnp_master.utils.StaticContent;
 import com.nikvay.cnp_master.utils.SuccessDialog;
 import com.nikvay.cnp_master.utils.UserData;
@@ -100,14 +101,21 @@ public class CommonActivityForSalesAndUpToSales extends AppCompatActivity {
             if (activity_type.equalsIgnoreCase(StaticContent.IntentValue.VIEW_UPTO_SALES)) {
                 textTitle.setText("Upto Sales");
 
-                callUptoSalesWs();
+                if (NetworkUtils.isNetworkAvailable(CommonActivityForSalesAndUpToSales.this))
+                    callUptoSalesWs();
+                else
+                    NetworkUtils.isNetworkNotAvailable(CommonActivityForSalesAndUpToSales.this);
+
 
             } else {
                 textTitle.setText("Sales");
                 textSales.setText("Sales");
                 textMonth.setText("Year");
 
-                callSalesWS();
+                if (NetworkUtils.isNetworkAvailable(CommonActivityForSalesAndUpToSales.this))
+                    callSalesWS();
+                else
+                    NetworkUtils.isNetworkNotAvailable(CommonActivityForSalesAndUpToSales.this);
 
 
             }
