@@ -9,6 +9,14 @@ public class CustomerUpdateBlankField {
     String  billing_GST_no;
     String delivery_address;
     String term_of_payment;
+    String old_delevery_address1;
+    String old_delevery_address2;
+    String old_delevery_address3;
+    String old_delevery_address4;
+    String billing_address1;
+    String billing_address2;
+    String billing_address3;
+    String billing_address4;
 
     public String getCustomer_id() {
         return customer_id;
@@ -67,5 +75,67 @@ public class CustomerUpdateBlankField {
     }
 
 
+    public String getOld_delevery_address1() {
+        return old_delevery_address1;
+    }
 
+    public void setOld_delevery_address1(String old_delevery_address1) {
+        this.old_delevery_address1 = old_delevery_address1;
+    }
+
+    public String getOld_delevery_address2() {
+        return old_delevery_address2;
+    }
+
+    public void setOld_delevery_address2(String old_delevery_address2) {
+        this.old_delevery_address2 = old_delevery_address2;
+    }
+
+    public String getOld_delevery_address3() {
+        return old_delevery_address3;
+    }
+
+    public void setOld_delevery_address3(String old_delevery_address3) {
+        this.old_delevery_address3 = old_delevery_address3;
+    }
+
+    public String getOld_delevery_address4() {
+        return old_delevery_address4;
+    }
+
+    public void setOld_delevery_address4(String old_delevery_address4) {
+        this.old_delevery_address4 = old_delevery_address4;
+    }
+
+    public String getBilling_address1() {
+        return billing_address1;
+    }
+
+    public void setBilling_address1(String billing_address1) {
+        this.billing_address1 = billing_address1;
+    }
+
+    public String getBilling_address2() {
+        return billing_address2;
+    }
+
+    public void setBilling_address2(String billing_address2) {
+        this.billing_address2 = billing_address2;
+    }
+
+    public String getBilling_address3() {
+        return billing_address3;
+    }
+
+    public void setBilling_address3(String billing_address3) {
+        this.billing_address3 = billing_address3;
+    }
+
+    public String getBilling_address4() {
+        return billing_address4;
+    }
+
+    public void setBilling_address4(String billing_address4) {
+        this.billing_address4 = billing_address4;
+    }
 }

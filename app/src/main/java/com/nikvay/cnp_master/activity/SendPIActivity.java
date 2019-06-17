@@ -34,19 +34,21 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
     private Button btnSubmitSendPi;
 
 
-    private RadioButton radioYCA, radioNCA, radioDispatchEmail, radioCM, radioTCY, radioTCN, radioInspectionY, radioInspectionN;
-    private AutoCompleteTextView textTransporter, textPaymentDetails, textEmail, textSpecs, textOther, textReference, textCell_No, textBilling_GST_No, textDelivery_Address, textTerm_Of_Payment,textDelivery1_Address,textDelivery2_Address,textDelivery3_Address;
-    private TextInputLayout textReferenceTI, textCell_NoTI, textBilling_GST_NoTI, textDelivery_AddressTI, textTerm_Of_PaymentTI,textDelivery1_AddressTI,textDelivery2_AddressTI,textDelivery3_AddressTI;
-    private RadioGroup radioGroupDispatchEmail, radioGroupCMY;
+    private RadioButton radioYCA, radioNCA, radioDispatchEmail, radioCM, radioTCY, radioTCN, radioInspectionY, radioInspectionN, radioDelivery;
+    private AutoCompleteTextView textTransporter, textPaymentDetails, textEmail, textSpecs, textOther, textReference, textCell_No, textBilling_GST_No, textDelivery_Address, textTerm_Of_Payment, textDelivery1_Address, textDelivery2_Address, textDelivery3_Address;
+    private TextInputLayout textReferenceTI, textCell_NoTI, textBilling_GST_NoTI, textDelivery_AddressTI, textTerm_Of_PaymentTI, textDelivery1_AddressTI, textDelivery2_AddressTI, textDelivery3_AddressTI;
+    private RadioGroup radioGroupDispatchEmail, radioGroupCMY, radioGroupDeliveryAddress;
 
-    String profileComplete = "Yes";
+    String profileComplete = "Yes", deliveryAddress;
     private String mQuotationNumber;
     private SuccessDialog successDialog;
-    private LinearLayout ll_customerEdit;
+    private LinearLayout ll_customerEdit, ll_delivery_address;
     private CustomerUpdateBlankField customerUpdateBlankField;
     String customer_id, reference, cell_no, email_id, billing_GST_no, delivery_address, term_of_payment;
-    String  mReference, mCell_no,mBilling_GST_no, mDelivery_address, mTerm_of_payment;
+    String mReference, mCell_no, mBilling_GST_no, mDelivery_address, mTerm_of_payment;
     String getReference, getCellNo, getBilling_Gst, getDelivery_Address, getTermOfPay, getEmail, getPaymentDetails, getTransporter, getOther, getSpecs;
+    String billing_address1, billing_address2, billing_address3, billing_address4;
+    String old_delevery_address1, old_delevery_address2, old_delevery_address3, old_delevery_address4;
 
     static int blankFieldCount = 0;
 
@@ -106,6 +108,8 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
         textDelivery1_Address = findViewById(R.id.textDelivery1_Address);
         textDelivery2_Address = findViewById(R.id.textDelivery2_Address);
         textDelivery3_Address = findViewById(R.id.textDelivery3_Address);
+        radioGroupDeliveryAddress = findViewById(R.id.radioGroupDeliveryAddress);
+        ll_delivery_address = findViewById(R.id.ll_delivery_address);
 
 
         textTransporter = findViewById(R.id.textTransporter);
@@ -132,6 +136,7 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
                 VibrateOnClick.vibrate();
                 callCheckBlankField();
 
+                String delivery1_address, delivery2_address, delivery3_address, delivery4_address;
                 getReference = textReference.getText().toString().trim();
                 getCellNo = textCell_No.getText().toString().trim();
                 getBilling_Gst = textBilling_GST_No.getText().toString().trim();
@@ -142,6 +147,11 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
                 getTransporter = textTransporter.getText().toString().trim();
                 getOther = textOther.getText().toString();
                 getSpecs = textSpecs.getText().toString().trim();
+
+                delivery1_address = textDelivery_Address.getText().toString().trim();
+                delivery2_address = textDelivery1_Address.getText().toString().trim();
+                delivery3_address = textDelivery2_Address.getText().toString().trim();
+                delivery4_address = textDelivery3_Address.getText().toString().trim();
 
                 if (getTransporter.equalsIgnoreCase("")) {
                     textTransporter.setError("Enter Transporter");
@@ -170,13 +180,13 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
 
                     } else if (getBilling_Gst.equalsIgnoreCase("")) {
                         messageDialog.showDialog("Customer Master Is" + "\n" + "Un-completed");
-                    } else if (getDelivery_Address.equalsIgnoreCase("")) {
+                    } /*else if (getDelivery_Address.equalsIgnoreCase("")) {
                         messageDialog.showDialog("Customer Master Is" + "\n" + " Un-completed");
-                    } else if (getTermOfPay.equalsIgnoreCase("")) {
+                    }*/ else if (getTermOfPay.equalsIgnoreCase("")) {
                         messageDialog.showDialog("Customer Master Is" + "\n" + "Un-completed");
                     } else {
-                         callCustomerUpdate();
-                         callSendPiWS();
+                        callCustomerUpdate();
+                        callSendPiWS();
                     }
 
                 } else if (profileComplete.equalsIgnoreCase("No")) {
@@ -193,19 +203,31 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
                         textBilling_GST_No.setError("Enter Billing GST No");
                         textBilling_GST_No.requestFocus();
 
-                    } else if (getDelivery_Address.equalsIgnoreCase("")) {
+                    } /*else if (getDelivery_Address.equalsIgnoreCase("")) {
                         textDelivery_Address.setError("Enter Delivery Address");
                         textDelivery_Address.requestFocus();
-                    } else if (getTermOfPay.equalsIgnoreCase("")) {
+                    }*/ else if (getTermOfPay.equalsIgnoreCase("")) {
                         textTerm_Of_Payment.setError("Enter Term Of Payment");
                         textTerm_Of_Payment.requestFocus();
                     } else {
                         callCustomerUpdate();
-                        callSendPiWS();
                     }
-
-
+                } else if (delivery1_address.equalsIgnoreCase("")) {
+                    textDelivery_Address.setError("Enter Company Details");
+                    textDelivery_Address.requestFocus();
+                } else if (delivery2_address.equalsIgnoreCase("")) {
+                    textDelivery1_Address.setError("Enter Company Address");
+                    textDelivery1_Address.requestFocus();
+                } else if (delivery3_address.equalsIgnoreCase("")) {
+                    textDelivery2_Address.setError("Enter Location State Pin Code");
+                    textDelivery2_Address.requestFocus();
+                } else if (delivery4_address.equalsIgnoreCase("")) {
+                    textDelivery3_Address.setError("Enter Number Email");
+                    textDelivery3_Address.requestFocus();
+                } else {
+                     callSendPiWS();
                 }
+
 
             }
 
@@ -245,8 +267,56 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
             }
         });
 
+        radioGroupDeliveryAddress.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int isChecked) {
+
+                radioDelivery = findViewById(isChecked);
+                deliveryAddress = radioDelivery.getText().toString().trim();
+                if (deliveryAddress.equalsIgnoreCase("Same As Billing Address")) {
+                    sameAsBilling();
+                } else if (deliveryAddress.equalsIgnoreCase("Old Address")) {
+                    oldAddress();
+                } else {
+                    newAddress();
+                }
+
+            }
+        });
+
 
     }
+
+    private void newAddress() {
+
+        textDelivery_Address.setText("");
+        textDelivery1_Address.setText("");
+        textDelivery2_Address.setText("");
+        textDelivery3_Address.setText("");
+
+
+    }
+
+    private void oldAddress() {
+
+
+        textDelivery_Address.setText(old_delevery_address1.equalsIgnoreCase("null") ? "" : old_delevery_address1);
+        textDelivery1_Address.setText(old_delevery_address2.equalsIgnoreCase("null") ? "" : old_delevery_address2);
+        textDelivery2_Address.setText(old_delevery_address3.equalsIgnoreCase("null") ? "" : old_delevery_address3);
+        textDelivery3_Address.setText(old_delevery_address4.equalsIgnoreCase("null") ? "" : old_delevery_address4);
+    }
+
+    private void sameAsBilling() {
+
+
+        textDelivery_Address.setText(billing_address1.equalsIgnoreCase("null") ? "" : billing_address1);
+        textDelivery1_Address.setText(billing_address2.equalsIgnoreCase("null") ? "" : billing_address2);
+        textDelivery2_Address.setText(billing_address3.equalsIgnoreCase("null") ? "" : billing_address3);
+        textDelivery3_Address.setText(billing_address4.equalsIgnoreCase("null") ? "" : billing_address4);
+
+
+    }
+
 
     private void callCustomerUpdate() {
         if (reference.equalsIgnoreCase("")) {
@@ -263,9 +333,9 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
 
         }
 
-        if (delivery_address.equalsIgnoreCase("")) {
+      /*  if (delivery_address.equalsIgnoreCase("")) {
             getDelivery_Address = mDelivery_address;
-        }
+        }*/
         if (term_of_payment.equalsIgnoreCase("")) {
 
             getTermOfPay = mTerm_of_payment;
@@ -308,7 +378,7 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
             }
 
 
-            if (delivery_address.equalsIgnoreCase("0") || delivery_address.equalsIgnoreCase("null") || delivery_address.equalsIgnoreCase("NA") || delivery_address.equalsIgnoreCase("")) {
+           /* if (delivery_address.equalsIgnoreCase("0") || delivery_address.equalsIgnoreCase("null") || delivery_address.equalsIgnoreCase("NA") || delivery_address.equalsIgnoreCase("")) {
                 blankFieldCount++;
                 textDelivery1_AddressTI.setVisibility(View.VISIBLE);
                 textDelivery2_AddressTI.setVisibility(View.VISIBLE);
@@ -337,7 +407,7 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
                 mDelivery_address = "";
 
 
-            }
+            }*/
             if (term_of_payment.equalsIgnoreCase("0") || term_of_payment.equalsIgnoreCase("null") || term_of_payment.equalsIgnoreCase("NA") || term_of_payment.equalsIgnoreCase("")) {
                 blankFieldCount++;
             } else {
@@ -348,9 +418,7 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
 
             }
 
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -432,6 +500,15 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
                             delivery_address = jsonObjectSub.getString("delivery_address").trim();
                             term_of_payment = jsonObjectSub.getString("term_of_payment").trim();
 
+                            old_delevery_address1 = jsonObjectSub.getString("old_delevery_address1").trim();
+                            old_delevery_address2 = jsonObjectSub.getString("old_delevery_address2").trim();
+                            old_delevery_address3 = jsonObjectSub.getString("old_delevery_address3").trim();
+                            old_delevery_address4 = jsonObjectSub.getString("old_delevery_address4").trim();
+                            billing_address1 = jsonObjectSub.getString("billing_address1").trim();
+                            billing_address2 = jsonObjectSub.getString("billing_address2").trim();
+                            billing_address3 = jsonObjectSub.getString("billing_address3").trim();
+                            billing_address4 = jsonObjectSub.getString("billing_address4").trim();
+
 
                             customerUpdateBlankField = new CustomerUpdateBlankField();
                             customerUpdateBlankField.setCustomer_id(customer_id);
@@ -443,6 +520,17 @@ public class SendPIActivity extends AppCompatActivity implements VolleyCompleteL
                             customerUpdateBlankField.setTerm_of_payment(term_of_payment);
 
 
+                            customerUpdateBlankField.setBilling_address1(billing_address1);
+                            customerUpdateBlankField.setBilling_address2(billing_address2);
+                            customerUpdateBlankField.setBilling_address3(billing_address3);
+                            customerUpdateBlankField.setBilling_address4(billing_address4);
+
+                            customerUpdateBlankField.setOld_delevery_address1(old_delevery_address1);
+                            customerUpdateBlankField.setOld_delevery_address2(old_delevery_address2);
+                            customerUpdateBlankField.setOld_delevery_address3(old_delevery_address3);
+                            customerUpdateBlankField.setOld_delevery_address4(old_delevery_address4);
+
+                            sameAsBilling();
                         }
 
                     }

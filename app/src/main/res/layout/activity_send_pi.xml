@@ -342,8 +342,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/ll_edit_customer"
-                    android:visibility="gone"
                     android:layout_marginTop="10dp"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
 
@@ -397,80 +397,6 @@
                             android:backgroundTint="@color/colorPrimary"
                             android:gravity="center|left"
                             android:hint="Billing GST No"
-                            android:inputType="text"
-                            android:textColor="@color/colorPrimary" />
-                    </android.support.design.widget.TextInputLayout>
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textDelivery_AddressTI"
-                        android:layout_marginTop="5dp">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/textDelivery_Address"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:gravity="center|left"
-                            android:hint="Delivery Address 1"
-                            android:inputType="text"
-                            android:textColor="@color/colorPrimary" />
-                    </android.support.design.widget.TextInputLayout>
-
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textDelivery1_AddressTI"
-                        android:visibility="gone"
-                        android:layout_marginTop="5dp">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/textDelivery1_Address"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:gravity="center|left"
-                            android:hint="Delivery Address 2"
-                            android:inputType="text"
-                            android:textColor="@color/colorPrimary" />
-                    </android.support.design.widget.TextInputLayout>
-
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textDelivery2_AddressTI"
-                        android:visibility="gone"
-                        android:layout_marginTop="5dp">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/textDelivery2_Address"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:gravity="center|left"
-                            android:hint="Delivery Address 3"
-                            android:inputType="text"
-                            android:textColor="@color/colorPrimary" />
-                    </android.support.design.widget.TextInputLayout>
-
-
-                    <android.support.design.widget.TextInputLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/textDelivery3_AddressTI"
-                        android:visibility="gone"
-                        android:layout_marginTop="5dp">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/textDelivery3_Address"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:backgroundTint="@color/colorPrimary"
-                            android:gravity="center|left"
-                            android:hint="Delivery Address 4"
                             android:inputType="text"
                             android:textColor="@color/colorPrimary" />
                     </android.support.design.widget.TextInputLayout>
@@ -582,6 +508,130 @@
                 </RadioGroup>
 
 
+
+
+                <TextView
+                    style="@style/TextAppearance.AppCompat.Small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center|left"
+                    android:text="Delivery Address"
+                    android:textColor="@color/colorPrimary" />
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:id="@+id/radioGroupDeliveryAddress"
+                    android:checkedButton="@id/radioSameAsBilling">
+
+                    <RadioButton
+                        android:id="@+id/radioSameAsBilling"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Same As Billing Address" />
+
+                    <RadioButton
+                        android:id="@+id/radioOldAddess"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Old Address" />
+
+
+                    <RadioButton
+                        android:id="@+id/radioNew"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="New Delivery Address" />
+
+                </RadioGroup>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/ll_delivery_address"
+                    android:orientation="vertical">
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textDelivery_AddressTI"
+                        android:layout_marginTop="5dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/textDelivery_Address"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:gravity="center|left"
+                            android:hint="Company Details"
+                            android:inputType="text"
+                            android:textColor="@color/colorPrimary" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textDelivery1_AddressTI"
+                        android:layout_marginTop="5dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/textDelivery1_Address"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:gravity="center|left"
+                            android:hint="Company Address"
+                            android:inputType="text"
+                            android:textColor="@color/colorPrimary" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textDelivery2_AddressTI"
+                        android:layout_marginTop="5dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/textDelivery2_Address"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:gravity="center|left"
+                            android:hint="Location,State,Pin code"
+                            android:inputType="text"
+                            android:textColor="@color/colorPrimary" />
+                    </android.support.design.widget.TextInputLayout>
+
+
+                    <android.support.design.widget.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textDelivery3_AddressTI"
+                        android:layout_marginTop="5dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/textDelivery3_Address"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:gravity="center|left"
+                            android:hint="Number,Email"
+                            android:inputType="text"
+                            android:textColor="@color/colorPrimary" />
+                    </android.support.design.widget.TextInputLayout>
+
+                </LinearLayout>
+
+
+
+
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -611,6 +661,10 @@
                     android:textColor="@android:color/white" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
+
+
+
+
 
 
     </android.support.v4.widget.NestedScrollView>
